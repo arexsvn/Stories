@@ -1,0 +1,12 @@
+<dialogues id="plant" start="dialogue_plant_0">
+  <dialogue id="dialogue_plant_0" next="plant_description_0">
+    <description id="plant_description_0" character="tyler" next="plant_question_0">plant_description_0</description>
+    <question id="plant_question_0" character="tyler" emotion="happy">
+      <choice id="plant_choice_1" label="plant_choice_1_label" next="plant_statement_0">plant_choice_1</choice>
+      <choice id="plant_choice_2" label="plant_choice_2_label" next="plant_statement_1">plant_choice_2</choice>
+    </question>
+    <statement id="plant_statement_0" character="tyler" outcome="plant_statement_0_outcome" next="plant_description_1">plant_statement_0</statement>
+    <description id="plant_description_1">plant_description_1</description>
+    <statement id="plant_statement_1" character="tyler" next="plant_description_1">plant_statement_1</statement>
+  </dialogue>
+</dialogues>

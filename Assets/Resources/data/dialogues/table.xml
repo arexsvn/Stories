@@ -1,0 +1,6 @@
+<dialogues id="table" start="table">
+  <dialogue id="table" next="table_0">
+    <description id="table_0" next="table_1">table_0</description>
+    <description id="table_1">table_1</description>
+  </dialogue>
+</dialogues>

@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d31b62ec9d586a4e94389d9071559ca, type: 3}
+  m_Name: tall_plant
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.91,"type":"FlowCanvas.FlowScript","translation":{"x":27.05976,"y":-125.9069},"nodes":[{"memoryId":"tall_plant","sceneId":"","memoryTitle":"Discussion
+    with tall plant.","memoryLabel":"Talk to surly plant?","nodeId":"tall_plant_choice_0","_position":{"x":188.0,"y":509.0},"$type":"FlowCanvas.Nodes.MemoryStartNode","$id":"2"},{"character":"","text":"You
+    don''t like the look the tall plant is giving you.","outcome":"","type":"Description","generatedXml":{},"nodeId":"tall_plant_description_0","_position":{"x":408.0,"y":496.0},"$type":"FlowCanvas.Nodes.DescriptionNode","$id":"3"},{"choices":2,"character":"tyler","text":"I
+    know what you done...","emotion":"","_portCount":2,"type":"Question","generatedXml":{},"nodeId":"tall_plant_question_0","_verboseLevel":"Partial","_position":{"x":622.0,"y":493.0},"$type":"FlowCanvas.Nodes.QuestionNode","$id":"5"},{"label":"Sorry
+    ''bout that.","text":"Sorry ''bout that.","outcome":"","generatedXml":{},"nodeId":"tall_plant_choice_1","_position":{"x":887.0,"y":453.0},"$type":"FlowCanvas.Nodes.ChoiceNode","$id":"7"},{"character":"tyler","text":"Stuff
+    your sorries in a sack!","emotion":"angry","outcome":"","type":"Statement","generatedXml":{},"nodeId":"tall_plant_statement_0","_position":{"x":1108.0,"y":525.0},"$type":"FlowCanvas.Nodes.StatementNode","$id":"9"},{"text":"You
+    maintain eye contact with the tall plant for longer than is healthy.","type":"Description","generatedXml":{},"nodeId":"tall_plant_description_1","_position":{"x":1334.0,"y":625.0},"$type":"FlowCanvas.Nodes.DescriptionNode","$id":"11"},{"label":"Ima
+    jus playin wit ya.","text":"Ima jus playin wit ya.","generatedXml":{},"nodeId":"tall_plant_choice_2","_position":{"x":882.0,"y":608.0},"$type":"FlowCanvas.Nodes.ChoiceNode","$id":"13"},{"character":"tyler","text":"There
+    is no hope for ye.","emotion":"sad","type":"Statement","generatedXml":{},"nodeId":"tall_plant_statement_1","_position":{"x":1093.0,"y":726.0},"$type":"FlowCanvas.Nodes.StatementNode","$id":"15"}],"connections":[{"_sourcePortName":"0","_targetPortName":"In","_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"FlowCanvas.BinderConnection"},{"_sourcePortName":"0","_targetPortName":"In","_sourceNode":{"$ref":"3"},"_targetNode":{"$ref":"5"},"$type":"FlowCanvas.BinderConnection"},{"_sourcePortName":"0","_targetPortName":"In","_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"7"},"$type":"FlowCanvas.BinderConnection"},{"_sourcePortName":"1","_targetPortName":"In","_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"13"},"$type":"FlowCanvas.BinderConnection"},{"_sourcePortName":"0","_targetPortName":"In","_sourceNode":{"$ref":"7"},"_targetNode":{"$ref":"9"},"$type":"FlowCanvas.BinderConnection"},{"_sourcePortName":"0","_targetPortName":"In","_sourceNode":{"$ref":"9"},"_targetNode":{"$ref":"11"},"$type":"FlowCanvas.BinderConnection"},{"_sourcePortName":"0","_targetPortName":"In","_sourceNode":{"$ref":"13"},"_targetNode":{"$ref":"15"},"$type":"FlowCanvas.BinderConnection"},{"_sourcePortName":"0","_targetPortName":"In","_sourceNode":{"$ref":"15"},"_targetNode":{"$ref":"11"},"$type":"FlowCanvas.BinderConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences: []
+  _deserializationFailed: 0

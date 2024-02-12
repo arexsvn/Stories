@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d31b62ec9d586a4e94389d9071559ca, type: 3}
+  m_Name: evening_decision_leave
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.91,"type":"FlowCanvas.FlowScript","translation":{"x":444.0,"y":166.0},"zoomFactor":0.6724152,"nodes":[{"memoryId":"evening_decision_leave","sceneId":"","memoryTitle":"The
+    argument to leave.","memoryLabel":"There''s one clear choice.","nodeId":"evening_decision_leave_choice_0","_position":{"x":-187.0,"y":412.0},"$type":"FlowCanvas.Nodes.MemoryStartNode","$id":"2"},{"character":"","text":"It''s
+    been a full day of interactions.","outcome":"","type":"Description","generatedXml":{},"nodeId":"evening_decision_leave_description_0","_position":{"x":-3.0,"y":489.0},"$type":"FlowCanvas.Nodes.DescriptionNode","$id":"3"},{"character":"","text":"Some
+    things I like here, but the draw of experiencing something new is strong.","outcome":"","type":"Description","generatedXml":{},"nodeId":"evening_decision_leave_description_1","_color":{"r":1.0,"g":0.6352941,"a":1.0},"_position":{"x":165.0,"y":547.0},"$type":"FlowCanvas.Nodes.DescriptionNode","$id":"5"},{"character":"","text":"Reflecting
+    about the day, what contributed most to wanting to leave?","_portCount":3,"type":"Question","generatedXml":{},"nodeId":"evening_decision_leave_question_0","_color":{"r":0.4,"g":1.0,"b":0.4,"a":1.0},"_position":{"x":349.0,"y":490.0},"$type":"FlowCanvas.Nodes.QuestionNode","$id":"7"},{"label":"Jai
+    pestering me at work.","text":"Jai definitely got on my nerves sometimes. He
+    would cause many interruptions.","generatedXml":{},"nodeId":"evening_decision_leave_choice_1","_position":{"x":526.0,"y":442.0},"$type":"FlowCanvas.Nodes.ChoiceNode","$id":"9"},{"text":"Maybe
+    all the conversations in some way contributed to why I want something new.","emotion":"","type":"Description","generatedXml":{},"nodeId":"evening_decision_leave_description_2","_position":{"x":758.0,"y":515.0},"$type":"FlowCanvas.Nodes.DescriptionNode","$id":"11"},{"choices":2,"character":"","text":"Should
+    I just quit now and call it done?","emotion":"","outcome":"","_portCount":2,"type":"Question","generatedXml":{},"nodeId":"evening_decision_leave_question_1","_position":{"x":981.0,"y":480.0},"$type":"FlowCanvas.Nodes.QuestionNode","$id":"13"},{"label":"Go
+    for it.","text":"I''ll email Miss C and let her know - politely - that I''m taking
+    the new job, last day effective immediately!","outcome":"","generatedXml":{},"nodeId":"evening_decision_leave_choice_2","_position":{"x":1203.0,"y":433.0},"$type":"FlowCanvas.Nodes.ChoiceNode","$id":"15"},{"text":"Hurrah!
+    Onto a new exciting chapter.","outcome":"New page turned.","type":"Description","generatedXml":{},"nodeId":"evening_decision_leave_description_3","_position":{"x":1464.0,"y":521.0},"$type":"FlowCanvas.Nodes.DescriptionNode","$id":"17"},{"label":"What
+    about being decent?","text":"I guess I''ll give my formal notice, two weeks will
+    pass pretty fast.","generatedXml":{},"nodeId":"evening_decision_leave_choice_3","_position":{"x":1206.0,"y":571.0},"$type":"FlowCanvas.Nodes.ChoiceNode","$id":"19"},{"label":"Lunch
+    with Roxy.","text":"Rox is actually pretty self-centered, more than I remembered.
+    I''m not sure we''re really friends.","generatedXml":{},"nodeId":"evening_decision_leave_choice_4","_color":{"g":1.0,"b":0.8,"a":1.0},"_position":{"x":530.0,"y":536.0},"$type":"FlowCanvas.Nodes.ChoiceNode","$id":"21"},{"label":"Miss
+    C''s surprise.","text":"Having your boss expect you to stay put makes it that
+    much sweeter when you leave.","generatedXml":{},"nodeId":"evening_decision_leave_choice_5","_color":{"g":1.0,"b":0.8,"a":1.0},"_position":{"x":541.0,"y":622.0},"$type":"FlowCanvas.Nodes.ChoiceNode","$id":"23"}],"connections":[{"_sourcePortName":"0","_targetPortName":"In","_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"FlowCanvas.BinderConnection"},{"_sourcePortName":"0","_targetPortName":"In","_sourceNode":{"$ref":"3"},"_targetNode":{"$ref":"5"},"$type":"FlowCanvas.BinderConnection"},{"_sourcePortName":"0","_targetPortName":"In","_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"7"},"$type":"FlowCanvas.BinderConnection"},{"_sourcePortName":"0","_targetPortName":"In","_sourceNode":{"$ref":"7"},"_targetNode":{"$ref":"9"},"$type":"FlowCanvas.BinderConnection"},{"_sourcePortName":"1","_targetPortName":"In","_sourceNode":{"$ref":"7"},"_targetNode":{"$ref":"21"},"$type":"FlowCanvas.BinderConnection"},{"_sourcePortName":"2","_targetPortName":"In","_sourceNode":{"$ref":"7"},"_targetNode":{"$ref":"23"},"$type":"FlowCanvas.BinderConnection"},{"_sourcePortName":"0","_targetPortName":"In","_sourceNode":{"$ref":"9"},"_targetNode":{"$ref":"11"},"$type":"FlowCanvas.BinderConnection"},{"_sourcePortName":"0","_targetPortName":"In","_sourceNode":{"$ref":"11"},"_targetNode":{"$ref":"13"},"$type":"FlowCanvas.BinderConnection"},{"_sourcePortName":"0","_targetPortName":"In","_sourceNode":{"$ref":"13"},"_targetNode":{"$ref":"15"},"$type":"FlowCanvas.BinderConnection"},{"_sourcePortName":"1","_targetPortName":"In","_sourceNode":{"$ref":"13"},"_targetNode":{"$ref":"19"},"$type":"FlowCanvas.BinderConnection"},{"_sourcePortName":"0","_targetPortName":"In","_sourceNode":{"$ref":"15"},"_targetNode":{"$ref":"17"},"$type":"FlowCanvas.BinderConnection"},{"_sourcePortName":"0","_targetPortName":"In","_sourceNode":{"$ref":"19"},"_targetNode":{"$ref":"17"},"$type":"FlowCanvas.BinderConnection"},{"_sourcePortName":"0","_targetPortName":"In","_sourceNode":{"$ref":"21"},"_targetNode":{"$ref":"11"},"$type":"FlowCanvas.BinderConnection"},{"_sourcePortName":"0","_targetPortName":"In","_sourceNode":{"$ref":"23"},"_targetNode":{"$ref":"11"},"$type":"FlowCanvas.BinderConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences: []
+  _deserializationFailed: 0

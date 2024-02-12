@@ -1,0 +1,10 @@
+<dialogues id="office_after_lunch" start="dialogue_office_after_lunch_0">
+  <dialogue id="dialogue_office_after_lunch_0" next="office_after_lunch_description_0">
+    <description id="office_after_lunch_description_0" next="office_after_lunch_question_0">office_after_lunch_description_0</description>
+    <question id="office_after_lunch_question_0">
+      <choice id="office_after_lunch_choice_1" label="office_after_lunch_choice_1_label">office_after_lunch_choice_1</choice>
+      <choice id="office_after_lunch_choice_2" label="office_after_lunch_choice_2_label">office_after_lunch_choice_2</choice>
+      <choice id="office_after_lunch_choice_3" label="office_after_lunch_choice_3_label">office_after_lunch_choice_3</choice>
+    </question>
+  </dialogue>
+</dialogues>

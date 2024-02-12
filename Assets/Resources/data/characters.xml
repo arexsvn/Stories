@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<characters>
+  <character id="jai" name="jai_name" textColor="#c4ae95">
+    <details>
+      <detail label="character_detail_label_age">jai_age</detail>
+      <detail label="character_detail_label_occupation">jai_occupation</detail>
+      <detail label="character_detail_label_relationship">jai_relationship</detail>
+    </details>
+  </character>
+  <character id="sal" name="sal_name" textColor="#5a8594">
+    <details>
+      <detail label="character_detail_label_age">sal_age</detail>
+      <detail label="character_detail_label_occupation">sal_occupation</detail>
+      <detail label="character_detail_label_relationship">sal_relationship</detail>
+    </details>
+  </character>
+  <character id="boss" name="boss_name" textColor="#c98792">
+    <details>
+      <detail label="character_detail_label_age">boss_age</detail>
+      <detail label="character_detail_label_occupation">boss_occupation</detail>
+      <detail label="character_detail_label_relationship">boss_relationship</detail>
+    </details>
+  </character>
+  <character id="rox" name="rox_name" textColor="#72fcc7">
+    <details>
+      <detail label="character_detail_label_age">rox_age</detail>
+      <detail label="character_detail_label_occupation">rox_occupation</detail>
+      <detail label="character_detail_label_relationship">rox_relationship</detail>
+    </details>
+  </character>
+</characters>

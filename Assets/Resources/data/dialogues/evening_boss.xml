@@ -1,0 +1,44 @@
+<dialogues id="evening_boss" start="dialogue_evening_boss_0">
+  <dialogue id="dialogue_evening_boss_0" next="evening_boss_description_0">
+    <description id="evening_boss_description_0" next="evening_boss_description_1">evening_boss_description_0</description>
+    <description id="evening_boss_description_1" next="evening_boss_question_0">evening_boss_description_1</description>
+    <question id="evening_boss_question_0">
+      <choice id="evening_boss_choice_1" label="evening_boss_choice_1_label" next="evening_boss_description_2">evening_boss_choice_1</choice>
+      <choice id="evening_boss_choice_9" label="evening_boss_choice_9_label" next="evening_boss_description_2">evening_boss_choice_9</choice>
+      <choice id="evening_boss_choice_10" label="evening_boss_choice_10_label" next="evening_boss_description_2">evening_boss_choice_10</choice>
+    </question>
+    <description id="evening_boss_description_2" next="evening_boss_question_1">evening_boss_description_2</description>
+    <question id="evening_boss_question_1" character="boss" emotion="happy" outcome="evening_boss_question_1_outcome">
+      <choice id="evening_boss_choice_2" label="evening_boss_choice_2_label" next="evening_boss_statement_0">evening_boss_choice_2</choice>
+      <choice id="evening_boss_choice_8" label="evening_boss_choice_8_label" next="evening_boss_statement_17">evening_boss_choice_8</choice>
+    </question>
+    <statement id="evening_boss_statement_0" character="boss" next="evening_boss_statement_1">evening_boss_statement_0</statement>
+    <statement id="evening_boss_statement_1" character="boss" emotion="angry" next="evening_boss_question_2">evening_boss_statement_1</statement>
+    <question id="evening_boss_question_2" character="boss" emotion="happy">
+      <choice id="evening_boss_choice_3" label="evening_boss_choice_3_label" next="evening_boss_statement_2">evening_boss_choice_3</choice>
+      <choice id="evening_boss_choice_7" label="evening_boss_choice_7_label" next="evening_boss_statement_16">evening_boss_choice_7</choice>
+    </question>
+    <statement id="evening_boss_statement_2" next="evening_boss_statement_3">evening_boss_statement_2</statement>
+    <statement id="evening_boss_statement_3" next="evening_boss_statement_4">evening_boss_statement_3</statement>
+    <statement id="evening_boss_statement_4" character="boss" next="evening_boss_statement_5">evening_boss_statement_4</statement>
+    <statement id="evening_boss_statement_5" character="boss" outcome="evening_boss_statement_5_outcome" next="evening_boss_statement_6">evening_boss_statement_5</statement>
+    <statement id="evening_boss_statement_6" character="boss" outcome="evening_boss_statement_6_outcome" next="evening_boss_question_3">evening_boss_statement_6</statement>
+    <question id="evening_boss_question_3" character="boss" emotion="angry">
+      <choice id="evening_boss_choice_4" label="evening_boss_choice_4_label" next="evening_boss_statement_7">evening_boss_choice_4</choice>
+      <choice id="evening_boss_choice_5" label="evening_boss_choice_5_label" next="evening_boss_statement_10">evening_boss_choice_5</choice>
+      <choice id="evening_boss_choice_6" label="evening_boss_choice_6_label" next="evening_boss_statement_13">evening_boss_choice_6</choice>
+    </question>
+    <statement id="evening_boss_statement_7" character="boss" outcome="evening_boss_statement_7_outcome" next="evening_boss_statement_8">evening_boss_statement_7</statement>
+    <statement id="evening_boss_statement_8" next="evening_boss_statement_9">evening_boss_statement_8</statement>
+    <statement id="evening_boss_statement_9" character="boss" emotion="happy" outcome="evening_boss_statement_9_outcome" next="evening_boss_description_3">evening_boss_statement_9</statement>
+    <description id="evening_boss_description_3">evening_boss_description_3</description>
+    <statement id="evening_boss_statement_10" next="evening_boss_statement_11">evening_boss_statement_10</statement>
+    <statement id="evening_boss_statement_11" character="boss" outcome="evening_boss_statement_11_outcome" next="evening_boss_statement_12">evening_boss_statement_11</statement>
+    <statement id="evening_boss_statement_12" character="boss" emotion="happy" outcome="evening_boss_statement_12_outcome" next="evening_boss_description_3">evening_boss_statement_12</statement>
+    <statement id="evening_boss_statement_13" next="evening_boss_statement_14">evening_boss_statement_13</statement>
+    <statement id="evening_boss_statement_14" character="boss" emotion="angry" outcome="evening_boss_statement_14_outcome" next="evening_boss_statement_15">evening_boss_statement_14</statement>
+    <statement id="evening_boss_statement_15" outcome="evening_boss_statement_15_outcome" next="evening_boss_description_3">evening_boss_statement_15</statement>
+    <statement id="evening_boss_statement_16" character="boss" emotion="happy" outcome="evening_boss_statement_16_outcome" next="evening_boss_statement_4">evening_boss_statement_16</statement>
+    <statement id="evening_boss_statement_17" character="boss" emotion="happy" outcome="evening_boss_statement_17_outcome" next="evening_boss_statement_1">evening_boss_statement_17</statement>
+  </dialogue>
+</dialogues>

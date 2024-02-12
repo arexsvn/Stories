@@ -1,0 +1,14 @@
+<dialogues id="cat_under_desk" start="dialogue_cat_under_desk_0">
+  <dialogue id="dialogue_cat_under_desk_0" next="cat_under_desk_statement_0">
+    <statement id="cat_under_desk_statement_0" next="cat_under_desk_statement_1">cat_under_desk_statement_0</statement>
+    <statement id="cat_under_desk_statement_1" character="cat" next="cat_under_desk_question_0">cat_under_desk_statement_1</statement>
+    <question id="cat_under_desk_question_0" character="cat">
+      <choice id="cat_under_desk_choice_1" label="cat_under_desk_choice_1" next="cat_under_desk_statement_2">cat_under_desk_choice_1</choice>
+      <choice id="cat_under_desk_choice_2" label="cat_under_desk_choice_2" next="cat_under_desk_statement_3">cat_under_desk_choice_2</choice>
+      <choice id="cat_under_desk_choice_3" label="cat_under_desk_choice_3" next="cat_under_desk_statement_4">cat_under_desk_choice_3</choice>
+    </question>
+    <statement id="cat_under_desk_statement_2" character="cat" emotion="angry">cat_under_desk_statement_2</statement>
+    <statement id="cat_under_desk_statement_3" character="cat">cat_under_desk_statement_3</statement>
+    <statement id="cat_under_desk_statement_4" character="cat" emotion="happy">cat_under_desk_statement_4</statement>
+  </dialogue>
+</dialogues>

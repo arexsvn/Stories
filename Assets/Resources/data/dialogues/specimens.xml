@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dialogues id="specimens" start="specimens_start">
+  <dialogue id="specimens_start" next="specimens_memory1">
+    <description next="specimens_memory2">specimens_memory1</description>
+    <description outcome="specimens_jane" character="jane">specimens_memory2</description>
+  </dialogue>
+</dialogues>

@@ -1,0 +1,12 @@
+<dialogues id="tall_plant" start="dialogue_tall_plant_0">
+  <dialogue id="dialogue_tall_plant_0" next="tall_plant_description_0">
+    <description id="tall_plant_description_0" next="tall_plant_question_0">tall_plant_description_0</description>
+    <question id="tall_plant_question_0" character="tyler">
+      <choice id="tall_plant_choice_1" label="tall_plant_choice_1_label" next="tall_plant_statement_0">tall_plant_choice_1</choice>
+      <choice id="tall_plant_choice_2" label="tall_plant_choice_2_label" next="tall_plant_statement_1">tall_plant_choice_2</choice>
+    </question>
+    <statement id="tall_plant_statement_0" character="tyler" emotion="angry" next="tall_plant_description_1">tall_plant_statement_0</statement>
+    <description id="tall_plant_description_1">tall_plant_description_1</description>
+    <statement id="tall_plant_statement_1" character="tyler" emotion="sad" next="tall_plant_description_1">tall_plant_statement_1</statement>
+  </dialogue>
+</dialogues>

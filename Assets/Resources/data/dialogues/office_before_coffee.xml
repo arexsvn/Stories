@@ -1,0 +1,5 @@
+<dialogues id="office_before_coffee" start="dialogue_office_before_coffee_0">
+  <dialogue id="dialogue_office_before_coffee_0" next="office_before_coffee_description_0">
+    <description id="office_before_coffee_description_0">office_before_coffee_description_0</description>
+  </dialogue>
+</dialogues>

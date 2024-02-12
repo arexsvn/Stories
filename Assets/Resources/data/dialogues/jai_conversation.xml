@@ -1,0 +1,71 @@
+<dialogues id="jai_conversation" start="dialogue_jai_conversation_0">
+  <dialogue id="dialogue_jai_conversation_0" next="jai_conversation_description_0">
+    <description id="jai_conversation_description_0" next="jai_conversation_description_1">jai_conversation_description_0</description>
+    <description id="jai_conversation_description_1" next="jai_conversation_description_2">jai_conversation_description_1</description>
+    <description id="jai_conversation_description_2" next="jai_conversation_statement_0">jai_conversation_description_2</description>
+    <statement id="jai_conversation_statement_0" next="jai_conversation_statement_1">jai_conversation_statement_0</statement>
+    <statement id="jai_conversation_statement_1" next="jai_conversation_description_3">jai_conversation_statement_1</statement>
+    <description id="jai_conversation_description_3" next="jai_conversation_description_4">jai_conversation_description_3</description>
+    <description id="jai_conversation_description_4" next="jai_conversation_question_0">jai_conversation_description_4</description>
+    <question id="jai_conversation_question_0">
+      <choice id="jai_conversation_choice_1" label="jai_conversation_choice_1" next="jai_conversation_description_5">jai_conversation_choice_1</choice>
+      <choice id="jai_conversation_choice_18" label="jai_conversation_choice_18" next="jai_conversation_description_5">jai_conversation_choice_18</choice>
+      <choice id="jai_conversation_choice_19" label="jai_conversation_choice_19" next="jai_conversation_description_5">jai_conversation_choice_19</choice>
+    </question>
+    <description id="jai_conversation_description_5" next="jai_conversation_description_6">jai_conversation_description_5</description>
+    <description id="jai_conversation_description_6" next="jai_conversation_description_7">jai_conversation_description_6</description>
+    <description id="jai_conversation_description_7" next="jai_conversation_description_8">jai_conversation_description_7</description>
+    <description id="jai_conversation_description_8" next="jai_conversation_question_1">jai_conversation_description_8</description>
+    <question id="jai_conversation_question_1">
+      <choice id="jai_conversation_choice_2" label="jai_conversation_choice_2_label" next="jai_conversation_statement_2">jai_conversation_choice_2</choice>
+      <choice id="jai_conversation_choice_17" label="jai_conversation_choice_17_label" next="jai_conversation_statement_2">jai_conversation_choice_17</choice>
+    </question>
+    <statement id="jai_conversation_statement_2" character="jai" emotion="happy" outcome="jai_conversation_statement_2_outcome" next="jai_conversation_description_9">jai_conversation_statement_2</statement>
+    <description id="jai_conversation_description_9" next="jai_conversation_description_10">jai_conversation_description_9</description>
+    <description id="jai_conversation_description_10" next="jai_conversation_statement_3">jai_conversation_description_10</description>
+    <statement id="jai_conversation_statement_3" next="jai_conversation_question_2">jai_conversation_statement_3</statement>
+    <question id="jai_conversation_question_2" character="jai">
+      <choice id="jai_conversation_choice_3" label="jai_conversation_choice_3_label" next="jai_conversation_statement_4">jai_conversation_choice_3</choice>
+      <choice id="jai_conversation_choice_16" label="jai_conversation_choice_16_label" next="jai_conversation_statement_4">jai_conversation_choice_16</choice>
+    </question>
+    <statement id="jai_conversation_statement_4" character="jai" next="jai_conversation_statement_5">jai_conversation_statement_4</statement>
+    <statement id="jai_conversation_statement_5" character="jai" next="jai_conversation_statement_6">jai_conversation_statement_5</statement>
+    <statement id="jai_conversation_statement_6" character="jai" outcome="jai_conversation_statement_6_outcome" next="jai_conversation_question_3">jai_conversation_statement_6</statement>
+    <question id="jai_conversation_question_3" character="jai">
+      <choice id="jai_conversation_choice_4" label="jai_conversation_choice_4_label" next="jai_conversation_statement_7">jai_conversation_choice_4</choice>
+      <choice id="jai_conversation_choice_14" label="jai_conversation_choice_14_label" next="jai_conversation_statement_19">jai_conversation_choice_14</choice>
+      <choice id="jai_conversation_choice_15" label="jai_conversation_choice_15_label" next="jai_conversation_statement_21">jai_conversation_choice_15</choice>
+    </question>
+    <statement id="jai_conversation_statement_7" character="jai" emotion="sad" next="jai_conversation_question_4">jai_conversation_statement_7</statement>
+    <question id="jai_conversation_question_4" character="jai" emotion="happy">
+      <choice id="jai_conversation_choice_5" label="jai_conversation_choice_5" next="jai_conversation_statement_8">jai_conversation_choice_5</choice>
+      <choice id="jai_conversation_choice_12" label="jai_conversation_choice_12_label" next="jai_conversation_statement_8">jai_conversation_choice_12</choice>
+      <choice id="jai_conversation_choice_13" label="jai_conversation_choice_13_label" next="jai_conversation_statement_16">jai_conversation_choice_13</choice>
+    </question>
+    <statement id="jai_conversation_statement_8" character="jai" next="jai_conversation_statement_9">jai_conversation_statement_8</statement>
+    <statement id="jai_conversation_statement_9" next="jai_conversation_question_5">jai_conversation_statement_9</statement>
+    <question id="jai_conversation_question_5" character="jai">
+      <choice id="jai_conversation_choice_6" label="jai_conversation_choice_6_label" next="jai_conversation_statement_10">jai_conversation_choice_6</choice>
+      <choice id="jai_conversation_choice_10" label="jai_conversation_choice_10_label" next="jai_conversation_statement_10">jai_conversation_choice_10</choice>
+      <choice id="jai_conversation_choice_11" label="jai_conversation_choice_11_label" next="jai_conversation_statement_10">jai_conversation_choice_11</choice>
+    </question>
+    <statement id="jai_conversation_statement_10" character="jai" next="jai_conversation_statement_11">jai_conversation_statement_10</statement>
+    <statement id="jai_conversation_statement_11" character="jai" emotion="happy" next="jai_conversation_question_6">jai_conversation_statement_11</statement>
+    <question id="jai_conversation_question_6" character="jai" emotion="happy">
+      <choice id="jai_conversation_choice_7" label="jai_conversation_choice_7_label" next="jai_conversation_statement_12">jai_conversation_choice_7</choice>
+      <choice id="jai_conversation_choice_8" label="jai_conversation_choice_8_label" next="jai_conversation_statement_12">jai_conversation_choice_8</choice>
+      <choice id="jai_conversation_choice_9" label="jai_conversation_choice_9_label" next="jai_conversation_statement_15">jai_conversation_choice_9</choice>
+    </question>
+    <statement id="jai_conversation_statement_12" next="jai_conversation_statement_13">jai_conversation_statement_12</statement>
+    <statement id="jai_conversation_statement_13" character="jai" emotion="happy" outcome="jai_conversation_statement_13_outcome" next="jai_conversation_statement_14">jai_conversation_statement_13</statement>
+    <statement id="jai_conversation_statement_14">jai_conversation_statement_14</statement>
+    <statement id="jai_conversation_statement_15" character="jai" emotion="sad" outcome="jai_conversation_statement_15_outcome" next="jai_conversation_statement_14">jai_conversation_statement_15</statement>
+    <statement id="jai_conversation_statement_16" next="jai_conversation_statement_17">jai_conversation_statement_16</statement>
+    <statement id="jai_conversation_statement_17" character="jai" next="jai_conversation_statement_18">jai_conversation_statement_17</statement>
+    <statement id="jai_conversation_statement_18" character="jai" emotion="sad" outcome="jai_conversation_statement_18_outcome" next="jai_conversation_description_11">jai_conversation_statement_18</statement>
+    <description id="jai_conversation_description_11">jai_conversation_description_11</description>
+    <statement id="jai_conversation_statement_19" next="jai_conversation_statement_20">jai_conversation_statement_19</statement>
+    <statement id="jai_conversation_statement_20" character="jai" emotion="sad" next="jai_conversation_question_4">jai_conversation_statement_20</statement>
+    <statement id="jai_conversation_statement_21" character="jai" emotion="happy" next="jai_conversation_question_4">jai_conversation_statement_21</statement>
+  </dialogue>
+</dialogues>

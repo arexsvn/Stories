@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<memories>
+  <memory id="plant" dialoguesId="plant" />
+  <memory id="tall_plant" dialoguesId="tall_plant" />
+  <memory id="office_before_coffee" dialoguesId="office_before_coffee" />
+  <memory id="office_plant" dialoguesId="office_plant" />
+  <memory id="office_after_lunch" dialoguesId="office_after_lunch" />
+  <memory id="morning_desk_jai" dialoguesId="morning_desk_jai" />
+  <memory id="evening_decision_leave" dialoguesId="evening_decision_leave" />
+  <memory id="evening_decision_stay" dialoguesId="evening_decision_stay" />
+  <memory id="noon_lunch" dialoguesId="noon_lunch" />
+  <memory id="evening_boss" dialoguesId="evening_boss" />
+  <memory id="jai_conversation" dialoguesId="jai_conversation" />
+  <memory id="morning_roommate" dialoguesId="morning_roommate" />
+</memories>

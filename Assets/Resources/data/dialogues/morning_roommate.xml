@@ -1,0 +1,52 @@
+<dialogues id="morning_roommate" start="dialogue_morning_roommate_0">
+  <dialogue id="dialogue_morning_roommate_0" next="morning_roommate_description_0">
+    <description id="morning_roommate_description_0" next="morning_roommate_description_1">morning_roommate_description_0</description>
+    <description id="morning_roommate_description_1" next="morning_roommate_description_2">morning_roommate_description_1</description>
+    <description id="morning_roommate_description_2" next="morning_roommate_description_3">morning_roommate_description_2</description>
+    <description id="morning_roommate_description_3" next="morning_roommate_description_4">morning_roommate_description_3</description>
+    <description id="morning_roommate_description_4" next="morning_roommate_description_5">morning_roommate_description_4</description>
+    <description id="morning_roommate_description_5" next="morning_roommate_statement_0">morning_roommate_description_5</description>
+    <statement id="morning_roommate_statement_0" character="sal" next="morning_roommate_question_0">morning_roommate_statement_0</statement>
+    <question id="morning_roommate_question_0" character="sal" outcome="morning_roommate_question_0_outcome">
+      <choice id="morning_roommate_choice_1" label="morning_roommate_choice_1_label" next="morning_roommate_statement_1">morning_roommate_choice_1</choice>
+      <choice id="morning_roommate_choice_8" label="morning_roommate_choice_8_label" next="morning_roommate_statement_15">morning_roommate_choice_8</choice>
+    </question>
+    <statement id="morning_roommate_statement_1" character="sal" emotion="angry" outcome="morning_roommate_statement_1_outcome" next="morning_roommate_statement_2">morning_roommate_statement_1</statement>
+    <statement id="morning_roommate_statement_2" next="morning_roommate_description_6">morning_roommate_statement_2</statement>
+    <description id="morning_roommate_description_6" next="morning_roommate_question_1">morning_roommate_description_6</description>
+    <question id="morning_roommate_question_1" character="sal">
+      <choice id="morning_roommate_choice_2" label="morning_roommate_choice_2_label" next="morning_roommate_description_7">morning_roommate_choice_2</choice>
+      <choice id="morning_roommate_choice_5" label="morning_roommate_choice_5_label" next="morning_roommate_description_11">morning_roommate_choice_5</choice>
+    </question>
+    <description id="morning_roommate_description_7" next="morning_roommate_description_8">morning_roommate_description_7</description>
+    <description id="morning_roommate_description_8" next="morning_roommate_statement_3">morning_roommate_description_8</description>
+    <statement id="morning_roommate_statement_3" character="sal" emotion="angry" next="morning_roommate_statement_4">morning_roommate_statement_3</statement>
+    <statement id="morning_roommate_statement_4" character="sal" next="morning_roommate_question_2">morning_roommate_statement_4</statement>
+    <question id="morning_roommate_question_2" character="sal">
+      <choice id="morning_roommate_choice_3" label="morning_roommate_choice_3_label" next="morning_roommate_statement_5">morning_roommate_choice_3</choice>
+      <choice id="morning_roommate_choice_4" label="morning_roommate_choice_4_label" next="morning_roommate_statement_8">morning_roommate_choice_4</choice>
+    </question>
+    <statement id="morning_roommate_statement_5" character="sal" emotion="happy" outcome="morning_roommate_statement_5_outcome" next="morning_roommate_statement_6">morning_roommate_statement_5</statement>
+    <statement id="morning_roommate_statement_6" outcome="morning_roommate_statement_6_outcome" next="morning_roommate_statement_7">morning_roommate_statement_6</statement>
+    <statement id="morning_roommate_statement_7" next="morning_roommate_description_9">morning_roommate_statement_7</statement>
+    <description id="morning_roommate_description_9">morning_roommate_description_9</description>
+    <statement id="morning_roommate_statement_8" character="sal" emotion="angry" outcome="morning_roommate_statement_8_outcome" next="morning_roommate_statement_9">morning_roommate_statement_8</statement>
+    <statement id="morning_roommate_statement_9" character="sal" outcome="morning_roommate_statement_9_outcome" next="morning_roommate_statement_10">morning_roommate_statement_9</statement>
+    <statement id="morning_roommate_statement_10" next="morning_roommate_description_10">morning_roommate_statement_10</statement>
+    <description id="morning_roommate_description_10">morning_roommate_description_10</description>
+    <description id="morning_roommate_description_11" next="morning_roommate_description_12">morning_roommate_description_11</description>
+    <description id="morning_roommate_description_12" next="morning_roommate_statement_11">morning_roommate_description_12</description>
+    <statement id="morning_roommate_statement_11" character="sal" emotion="angry" next="morning_roommate_question_3">morning_roommate_statement_11</statement>
+    <question id="morning_roommate_question_3" character="sal">
+      <choice id="morning_roommate_choice_6" label="morning_roommate_choice_6_label" next="morning_roommate_description_13">morning_roommate_choice_6</choice>
+      <choice id="morning_roommate_choice_7" label="morning_roommate_choice_7_label" next="morning_roommate_statement_14">morning_roommate_choice_7</choice>
+    </question>
+    <description id="morning_roommate_description_13" next="morning_roommate_statement_12">morning_roommate_description_13</description>
+    <statement id="morning_roommate_statement_12" next="morning_roommate_description_14">morning_roommate_statement_12</statement>
+    <description id="morning_roommate_description_14" next="morning_roommate_statement_13">morning_roommate_description_14</description>
+    <statement id="morning_roommate_statement_13" character="sal" emotion="happy" outcome="morning_roommate_statement_13_outcome" next="morning_roommate_description_15">morning_roommate_statement_13</statement>
+    <description id="morning_roommate_description_15">morning_roommate_description_15</description>
+    <statement id="morning_roommate_statement_14" character="sal" emotion="happy" outcome="morning_roommate_statement_14_outcome" next="morning_roommate_description_15">morning_roommate_statement_14</statement>
+    <statement id="morning_roommate_statement_15" character="sal" emotion="happy" outcome="morning_roommate_statement_15_outcome" next="morning_roommate_description_6">morning_roommate_statement_15</statement>
+  </dialogue>
+</dialogues>

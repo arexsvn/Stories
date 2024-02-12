@@ -1,0 +1,73 @@
+<dialogues id="noon_lunch" start="dialogue_noon_lunch_0">
+  <dialogue id="dialogue_noon_lunch_0" next="noon_lunch_description_0">
+    <description id="noon_lunch_description_0" next="noon_lunch_question_0">noon_lunch_description_0</description>
+    <question id="noon_lunch_question_0">
+      <choice id="noon_lunch_choice_1" label="noon_lunch_choice_1_label" next="noon_lunch_statement_0">noon_lunch_choice_1</choice>
+      <choice id="noon_lunch_choice_16" label="noon_lunch_choice_16_label" next="noon_lunch_statement_22">noon_lunch_choice_16</choice>
+    </question>
+    <statement id="noon_lunch_statement_0" next="noon_lunch_description_1">noon_lunch_statement_0</statement>
+    <description id="noon_lunch_description_1" next="noon_lunch_description_2">noon_lunch_description_1</description>
+    <description id="noon_lunch_description_2" next="noon_lunch_description_3">noon_lunch_description_2</description>
+    <description id="noon_lunch_description_3" next="noon_lunch_question_1">noon_lunch_description_3</description>
+    <question id="noon_lunch_question_1" character="rox" emotion="happy">
+      <choice id="noon_lunch_choice_2" label="noon_lunch_choice_2_label" next="noon_lunch_statement_1">noon_lunch_choice_2</choice>
+      <choice id="noon_lunch_choice_15" label="noon_lunch_choice_15_label" next="noon_lunch_statement_21">noon_lunch_choice_15</choice>
+    </question>
+    <statement id="noon_lunch_statement_1" character="rox" emotion="happy" outcome="noon_lunch_statement_1_outcome" next="noon_lunch_description_4">noon_lunch_statement_1</statement>
+    <description id="noon_lunch_description_4" next="noon_lunch_statement_2">noon_lunch_description_4</description>
+    <statement id="noon_lunch_statement_2" character="rox" outcome="noon_lunch_statement_2_outcome" next="noon_lunch_statement_3">noon_lunch_statement_2</statement>
+    <statement id="noon_lunch_statement_3" next="noon_lunch_question_2">noon_lunch_statement_3</statement>
+    <question id="noon_lunch_question_2" character="rox">
+      <choice id="noon_lunch_choice_3" label="noon_lunch_choice_3_label" next="noon_lunch_statement_4">noon_lunch_choice_3</choice>
+      <choice id="noon_lunch_choice_13" label="noon_lunch_choice_13_label" next="noon_lunch_statement_20">noon_lunch_choice_13</choice>
+      <choice id="noon_lunch_choice_14" label="noon_lunch_choice_14_label" next="noon_lunch_statement_20">noon_lunch_choice_14</choice>
+    </question>
+    <statement id="noon_lunch_statement_4" next="noon_lunch_statement_5">noon_lunch_statement_4</statement>
+    <statement id="noon_lunch_statement_5" character="rox" emotion="happy" outcome="noon_lunch_statement_5_outcome" next="noon_lunch_question_3">noon_lunch_statement_5</statement>
+    <question id="noon_lunch_question_3" character="rox">
+      <choice id="noon_lunch_choice_4" label="noon_lunch_choice_4_label" next="noon_lunch_description_5">noon_lunch_choice_4</choice>
+      <choice id="noon_lunch_choice_11" label="noon_lunch_choice_11_label" next="noon_lunch_description_5">noon_lunch_choice_11</choice>
+      <choice id="noon_lunch_choice_12" label="noon_lunch_choice_12_label" next="noon_lunch_description_5">noon_lunch_choice_12</choice>
+    </question>
+    <description id="noon_lunch_description_5" next="noon_lunch_statement_6">noon_lunch_description_5</description>
+    <statement id="noon_lunch_statement_6" character="rox" emotion="angry" next="noon_lunch_question_4">noon_lunch_statement_6</statement>
+    <question id="noon_lunch_question_4" character="rox" emotion="angry" outcome="noon_lunch_question_4_outcome">
+      <choice id="noon_lunch_choice_5" label="noon_lunch_choice_5_label" next="noon_lunch_statement_7">noon_lunch_choice_5</choice>
+      <choice id="noon_lunch_choice_9" label="noon_lunch_choice_9_label" next="noon_lunch_statement_15">noon_lunch_choice_9</choice>
+      <choice id="noon_lunch_choice_10" label="noon_lunch_choice_10_label" next="noon_lunch_statement_18">noon_lunch_choice_10</choice>
+    </question>
+    <statement id="noon_lunch_statement_7" character="rox" outcome="noon_lunch_statement_7_outcome" next="noon_lunch_description_6">noon_lunch_statement_7</statement>
+    <description id="noon_lunch_description_6" next="noon_lunch_description_7">noon_lunch_description_6</description>
+    <description id="noon_lunch_description_7" next="noon_lunch_question_5">noon_lunch_description_7</description>
+    <question id="noon_lunch_question_5" character="rox">
+      <choice id="noon_lunch_choice_6" label="noon_lunch_choice_6_label" next="noon_lunch_statement_8">noon_lunch_choice_6</choice>
+      <choice id="noon_lunch_choice_7" label="noon_lunch_choice_7_label" next="noon_lunch_statement_13">noon_lunch_choice_7</choice>
+      <choice id="noon_lunch_choice_8" label="noon_lunch_choice_8_label" next="noon_lunch_statement_14">noon_lunch_choice_8</choice>
+    </question>
+    <statement id="noon_lunch_statement_8" next="noon_lunch_description_8">noon_lunch_statement_8</statement>
+    <description id="noon_lunch_description_8" next="noon_lunch_description_9">noon_lunch_description_8</description>
+    <description id="noon_lunch_description_9" next="noon_lunch_statement_9">noon_lunch_description_9</description>
+    <statement id="noon_lunch_statement_9" character="rox" next="noon_lunch_description_10">noon_lunch_statement_9</statement>
+    <description id="noon_lunch_description_10" next="noon_lunch_statement_10">noon_lunch_description_10</description>
+    <statement id="noon_lunch_statement_10" next="noon_lunch_statement_11">noon_lunch_statement_10</statement>
+    <statement id="noon_lunch_statement_11" next="noon_lunch_description_11">noon_lunch_statement_11</statement>
+    <description id="noon_lunch_description_11" next="noon_lunch_statement_12">noon_lunch_description_11</description>
+    <statement id="noon_lunch_statement_12" character="rox" next="noon_lunch_description_12">noon_lunch_statement_12</statement>
+    <description id="noon_lunch_description_12">noon_lunch_description_12</description>
+    <statement id="noon_lunch_statement_13" next="noon_lunch_description_8">noon_lunch_statement_13</statement>
+    <statement id="noon_lunch_statement_14" next="noon_lunch_description_8">noon_lunch_statement_14</statement>
+    <statement id="noon_lunch_statement_15" next="noon_lunch_statement_16">noon_lunch_statement_15</statement>
+    <statement id="noon_lunch_statement_16" character="rox" emotion="angry" outcome="noon_lunch_statement_16_outcome" next="noon_lunch_statement_17">noon_lunch_statement_16</statement>
+    <statement id="noon_lunch_statement_17" next="noon_lunch_description_13">noon_lunch_statement_17</statement>
+    <description id="noon_lunch_description_13" next="noon_lunch_description_6">noon_lunch_description_13</description>
+    <statement id="noon_lunch_statement_18" character="rox" emotion="happy" outcome="noon_lunch_statement_18_outcome" next="noon_lunch_statement_19">noon_lunch_statement_18</statement>
+    <statement id="noon_lunch_statement_19" next="noon_lunch_description_7">noon_lunch_statement_19</statement>
+    <statement id="noon_lunch_statement_20" character="rox" outcome="noon_lunch_statement_20_outcome" next="noon_lunch_description_14">noon_lunch_statement_20</statement>
+    <description id="noon_lunch_description_14" next="noon_lunch_description_15">noon_lunch_description_14</description>
+    <description id="noon_lunch_description_15" next="noon_lunch_description_16">noon_lunch_description_15</description>
+    <description id="noon_lunch_description_16" next="noon_lunch_description_17">noon_lunch_description_16</description>
+    <description id="noon_lunch_description_17" next="noon_lunch_question_4">noon_lunch_description_17</description>
+    <statement id="noon_lunch_statement_21" character="rox" emotion="happy" outcome="noon_lunch_statement_21_outcome" next="noon_lunch_description_4">noon_lunch_statement_21</statement>
+    <statement id="noon_lunch_statement_22" next="noon_lunch_description_1">noon_lunch_statement_22</statement>
+  </dialogue>
+</dialogues>

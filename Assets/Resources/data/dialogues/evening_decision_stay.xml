@@ -1,0 +1,17 @@
+<dialogues id="evening_decision_stay" start="dialogue_evening_decision_stay_0">
+  <dialogue id="dialogue_evening_decision_stay_0" next="evening_decision_stay_description_0">
+    <description id="evening_decision_stay_description_0" next="evening_decision_stay_description_1">evening_decision_stay_description_0</description>
+    <description id="evening_decision_stay_description_1" next="evening_decision_stay_question_0">evening_decision_stay_description_1</description>
+    <question id="evening_decision_stay_question_0">
+      <choice id="evening_decision_stay_choice_1" label="evening_decision_stay_choice_1_label" next="evening_decision_stay_description_2">evening_decision_stay_choice_1</choice>
+      <choice id="evening_decision_stay_choice_4" label="evening_decision_stay_choice_4_label" next="evening_decision_stay_description_2">evening_decision_stay_choice_4</choice>
+      <choice id="evening_decision_stay_choice_5" label="evening_decision_stay_choice_5_label" next="evening_decision_stay_description_2">evening_decision_stay_choice_5</choice>
+    </question>
+    <description id="evening_decision_stay_description_2" next="evening_decision_stay_question_1">evening_decision_stay_description_2</description>
+    <question id="evening_decision_stay_question_1">
+      <choice id="evening_decision_stay_choice_2" label="evening_decision_stay_choice_2_label" next="evening_decision_stay_description_3">evening_decision_stay_choice_2</choice>
+      <choice id="evening_decision_stay_choice_3" label="evening_decision_stay_choice_3_label" next="evening_decision_stay_description_3">evening_decision_stay_choice_3</choice>
+    </question>
+    <description id="evening_decision_stay_description_3" outcome="evening_decision_stay_description_3_outcome">evening_decision_stay_description_3</description>
+  </dialogue>
+</dialogues>

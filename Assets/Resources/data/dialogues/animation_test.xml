@@ -1,0 +1,15 @@
+<dialogues id="animation_test" start="dialogue_animation_test_0">
+  <dialogue id="dialogue_animation_test_0" next="animation_test_description_0">
+    <description id="animation_test_description_0" next="animation_test_question_0">animation_test_description_0</description>
+    <question id="animation_test_question_0" character="cop">
+      <choice id="animation_test_choice_1" outcome="animation_test_choice_1_outcome" label="animation_test_choice_1_label" next="animation_test_statement_0">animation_test_choice_1</choice>
+      <choice id="animation_test_choice_2" emotion="surprise" outcome="animation_test_choice_2_outcome" label="animation_test_choice_2_label" next="animation_test_statement_0">animation_test_choice_2</choice>
+      <choice id="animation_test_choice_3" outcome="animation_test_choice_3_outcome" label="animation_test_choice_3" next="animation_test_statement_0">animation_test_choice_3</choice>
+      <choice id="animation_test_choice_4" label="animation_test_choice_4_label" next="animation_test_statement_1">animation_test_choice_4</choice>
+    </question>
+    <statement id="animation_test_statement_0" character="cop" emotion="angry" next="animation_test_description_1">animation_test_statement_0</statement>
+    <description id="animation_test_description_1" next="animation_test_description_2">animation_test_description_1</description>
+    <description id="animation_test_description_2">animation_test_description_2</description>
+    <statement id="animation_test_statement_1" character="cop" next="animation_test_description_1">animation_test_statement_1</statement>
+  </dialogue>
+</dialogues>

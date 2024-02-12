@@ -1,0 +1,55 @@
+<dialogues id="fabiana_boston_bar" start="dialogue_fabiana_boston_bar_0">
+  <dialogue id="dialogue_fabiana_boston_bar_0" next="fabiana_boston_bar_description_0">
+    <description id="fabiana_boston_bar_description_0" next="fabiana_boston_bar_description_1">fabiana_boston_bar_description_0</description>
+    <description id="fabiana_boston_bar_description_1" next="fabiana_boston_bar_description_2">fabiana_boston_bar_description_1</description>
+    <description id="fabiana_boston_bar_description_2" next="fabiana_boston_bar_description_3">fabiana_boston_bar_description_2</description>
+    <description id="fabiana_boston_bar_description_3" next="fabiana_boston_bar_description_4">fabiana_boston_bar_description_3</description>
+    <description id="fabiana_boston_bar_description_4" next="fabiana_boston_bar_statement_0">fabiana_boston_bar_description_4</description>
+    <statement id="fabiana_boston_bar_statement_0" character="fabiana" emotion="happy" next="fabiana_boston_bar_description_5">fabiana_boston_bar_statement_0</statement>
+    <description id="fabiana_boston_bar_description_5" next="fabiana_boston_bar_statement_1">fabiana_boston_bar_description_5</description>
+    <statement id="fabiana_boston_bar_statement_1" character="boston_bartender" next="fabiana_boston_bar_statement_2">fabiana_boston_bar_statement_1</statement>
+    <statement id="fabiana_boston_bar_statement_2" character="fabiana" emotion="angry" next="fabiana_boston_bar_statement_3">fabiana_boston_bar_statement_2</statement>
+    <statement id="fabiana_boston_bar_statement_3" character="bart" next="fabiana_boston_bar_description_6">fabiana_boston_bar_statement_3</statement>
+    <description id="fabiana_boston_bar_description_6" next="fabiana_boston_bar_statement_4">fabiana_boston_bar_description_6</description>
+    <statement id="fabiana_boston_bar_statement_4" character="fabiana" emotion="happy" next="fabiana_boston_bar_description_7">fabiana_boston_bar_statement_4</statement>
+    <description id="fabiana_boston_bar_description_7" next="fabiana_boston_bar_description_8">fabiana_boston_bar_description_7</description>
+    <description id="fabiana_boston_bar_description_8" next="fabiana_boston_bar_description_9">fabiana_boston_bar_description_8</description>
+    <description id="fabiana_boston_bar_description_9" next="fabiana_boston_bar_question_0">fabiana_boston_bar_description_9</description>
+    <question id="fabiana_boston_bar_question_0" character="fabiana">
+      <choice id="fabiana_boston_bar_choice_1" label="fabiana_boston_bar_choice_1" next="fabiana_boston_bar_statement_5">fabiana_boston_bar_choice_1</choice>
+      <choice id="fabiana_boston_bar_choice_6" label="fabiana_boston_bar_choice_6" next="fabiana_boston_bar_statement_15">fabiana_boston_bar_choice_6</choice>
+      <choice id="fabiana_boston_bar_choice_7" label="fabiana_boston_bar_choice_7" next="fabiana_boston_bar_statement_16">fabiana_boston_bar_choice_7</choice>
+    </question>
+    <statement id="fabiana_boston_bar_statement_5" character="fabiana" next="fabiana_boston_bar_statement_6">fabiana_boston_bar_statement_5</statement>
+    <statement id="fabiana_boston_bar_statement_6" character="fabiana" next="fabiana_boston_bar_statement_7">fabiana_boston_bar_statement_6</statement>
+    <statement id="fabiana_boston_bar_statement_7" character="boston_bartender" next="fabiana_boston_bar_statement_8">fabiana_boston_bar_statement_7</statement>
+    <statement id="fabiana_boston_bar_statement_8" character="fabiana" next="fabiana_boston_bar_description_10">fabiana_boston_bar_statement_8</statement>
+    <description id="fabiana_boston_bar_description_10" next="fabiana_boston_bar_description_11">fabiana_boston_bar_description_10</description>
+    <description id="fabiana_boston_bar_description_11" next="fabiana_boston_bar_statement_9">fabiana_boston_bar_description_11</description>
+    <statement id="fabiana_boston_bar_statement_9" character="boston_bartender" next="fabiana_boston_bar_statement_10">fabiana_boston_bar_statement_9</statement>
+    <statement id="fabiana_boston_bar_statement_10" character="fabiana" next="fabiana_boston_bar_description_12">fabiana_boston_bar_statement_10</statement>
+    <description id="fabiana_boston_bar_description_12" next="fabiana_boston_bar_description_13">fabiana_boston_bar_description_12</description>
+    <description id="fabiana_boston_bar_description_13" next="fabiana_boston_bar_question_1">fabiana_boston_bar_description_13</description>
+    <question id="fabiana_boston_bar_question_1">
+      <choice id="fabiana_boston_bar_choice_2" label="fabiana_boston_bar_choice_2_label" next="fabiana_boston_bar_description_14">fabiana_boston_bar_choice_2</choice>
+      <choice id="fabiana_boston_bar_choice_5" label="fabiana_boston_bar_choice_5" next="fabiana_boston_bar_description_19">fabiana_boston_bar_choice_5</choice>
+    </question>
+    <description id="fabiana_boston_bar_description_14" next="fabiana_boston_bar_question_2">fabiana_boston_bar_description_14</description>
+    <question id="fabiana_boston_bar_question_2" character="fabiana" emotion="happy">
+      <choice id="fabiana_boston_bar_choice_3" label="fabiana_boston_bar_choice_3" next="fabiana_boston_bar_statement_11">fabiana_boston_bar_choice_3</choice>
+      <choice id="fabiana_boston_bar_choice_4" label="fabiana_boston_bar_choice_4_label" next="fabiana_boston_bar_statement_12">fabiana_boston_bar_choice_4</choice>
+    </question>
+    <statement id="fabiana_boston_bar_statement_11" character="fabiana" emotion="happy" next="fabiana_boston_bar_description_15">fabiana_boston_bar_statement_11</statement>
+    <description id="fabiana_boston_bar_description_15" charStatus="1">fabiana_boston_bar_description_15</description>
+    <statement id="fabiana_boston_bar_statement_12" character="fabiana" next="fabiana_boston_bar_description_16">fabiana_boston_bar_statement_12</statement>
+    <description id="fabiana_boston_bar_description_16" next="fabiana_boston_bar_description_17">fabiana_boston_bar_description_16</description>
+    <description id="fabiana_boston_bar_description_17" next="fabiana_boston_bar_description_18">fabiana_boston_bar_description_17</description>
+    <description id="fabiana_boston_bar_description_18">fabiana_boston_bar_description_18</description>
+    <description id="fabiana_boston_bar_description_19" next="fabiana_boston_bar_statement_13">fabiana_boston_bar_description_19</description>
+    <statement id="fabiana_boston_bar_statement_13" character="fabiana" emotion="angry" next="fabiana_boston_bar_statement_14">fabiana_boston_bar_statement_13</statement>
+    <statement id="fabiana_boston_bar_statement_14" character="fabiana" next="fabiana_boston_bar_description_20">fabiana_boston_bar_statement_14</statement>
+    <description id="fabiana_boston_bar_description_20" charStatus="-1">fabiana_boston_bar_description_20</description>
+    <statement id="fabiana_boston_bar_statement_15" character="fabiana" next="fabiana_boston_bar_statement_6">fabiana_boston_bar_statement_15</statement>
+    <statement id="fabiana_boston_bar_statement_16" character="fabiana" next="fabiana_boston_bar_statement_6">fabiana_boston_bar_statement_16</statement>
+  </dialogue>
+</dialogues>

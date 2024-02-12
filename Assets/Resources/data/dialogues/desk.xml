@@ -1,0 +1,5 @@
+<dialogues id="desk" start="desk">
+  <dialogue id="desk" next="desk_0">
+    <description id="desk_0">desk_0</description>
+  </dialogue>
+</dialogues>

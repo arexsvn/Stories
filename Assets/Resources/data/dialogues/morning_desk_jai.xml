@@ -1,0 +1,15 @@
+<dialogues id="morning_desk_jai" start="dialogue_morning_desk_jai_0">
+  <dialogue id="dialogue_morning_desk_jai_0" next="morning_desk_jai_description_0">
+    <description id="morning_desk_jai_description_0" next="morning_desk_jai_description_1">morning_desk_jai_description_0</description>
+    <description id="morning_desk_jai_description_1" next="morning_desk_jai_question_0">morning_desk_jai_description_1</description>
+    <question id="morning_desk_jai_question_0" character="jai" emotion="happy">
+      <choice id="morning_desk_jai_choice_1" label="morning_desk_jai_choice_1_label" next="morning_desk_jai_statement_0">morning_desk_jai_choice_1</choice>
+      <choice id="morning_desk_jai_choice_2" label="morning_desk_jai_choice_2_label" next="morning_desk_jai_statement_1">morning_desk_jai_choice_2</choice>
+    </question>
+    <statement id="morning_desk_jai_statement_0" character="jai" outcome="morning_desk_jai_statement_0_outcome" next="morning_desk_jai_description_2">morning_desk_jai_statement_0</statement>
+    <description id="morning_desk_jai_description_2">morning_desk_jai_description_2</description>
+    <statement id="morning_desk_jai_statement_1" character="jai" next="morning_desk_jai_description_3">morning_desk_jai_statement_1</statement>
+    <description id="morning_desk_jai_description_3">morning_desk_jai_description_3</description>
+    <question id="morning_desk_jai_question_1" character="cat" />
+  </dialogue>
+</dialogues>

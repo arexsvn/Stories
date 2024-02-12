@@ -1,0 +1,15 @@
+<dialogues id="village" start="dialogue_village_0">
+  <dialogue id="dialogue_village_0" next="village_description_0">
+    <description id="village_description_0" character="tyler" outcome="village_description_0_outcome" next="village_question_0">village_description_0</description>
+    <question id="village_question_0" character="tyler" emotion="happy">
+      <choice id="village_choice_1" outcome="village_choice_1_outcome" label="village_choice_1_label" next="village_statement_0">village_choice_1</choice>
+      <choice id="village_choice_2" emotion="surprise" outcome="village_choice_2_outcome" label="village_choice_2_label" next="village_statement_0">village_choice_2</choice>
+      <choice id="village_choice_3" emotion="angry" outcome="village_choice_3_outcome" label="village_choice_3" next="village_statement_0">village_choice_3</choice>
+      <choice id="village_choice_4" label="village_choice_4_label" next="village_statement_1">village_choice_4</choice>
+    </question>
+    <statement id="village_statement_0" character="tyler" next="village_description_1">village_statement_0</statement>
+    <description id="village_description_1" next="village_description_2">village_description_1</description>
+    <description id="village_description_2">village_description_2</description>
+    <statement id="village_statement_1" character="tyler" next="village_description_1">village_statement_1</statement>
+  </dialogue>
+</dialogues>
