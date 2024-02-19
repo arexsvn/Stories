@@ -1,3 +1,4 @@
+using FlowCanvas.Nodes;
 using UnityEngine;
 using VContainer.Unity;
 
@@ -9,7 +10,8 @@ public class GameController : ITickable, ILateTickable, IFixedTickable, IInitial
     readonly SaveStateController _saveStateController;
     readonly DialogueController _dialogueController;
     readonly LocaleManager _localeManager;
-    readonly UIViewManager _uiViewManager;
+    readonly ISubscriber<ApplicationMessage> _applicationMessageSubscriber;
+    readonly MainMenuController _mainMenuController;
     private const string START_SCENE = "kitchen";
     public const string STRINGS_PATH = "data/strings";
 
@@ -18,29 +20,31 @@ public class GameController : ITickable, ILateTickable, IFixedTickable, IInitial
                           SaveStateController saveStateController, 
                           DialogueController dialogueController, 
                           LocaleManager localeManager,
-                          UIViewManager uiViewManager) 
+                          MainMenuController mainMenuController,
+                          ISubscriber<ApplicationMessage> applicationMessageSubscriber) 
     {
         _uiController = uiController;
         _sceneController = sceneController;
         _saveStateController = saveStateController;
         _dialogueController = dialogueController;
         _localeManager = localeManager;
-        _uiViewManager = uiViewManager;
-
+        _mainMenuController = mainMenuController;
+        _applicationMessageSubscriber = applicationMessageSubscriber;
     }
 
     // for playing memories from the MemoryCreator tool
     public void loadMemory(string memoryId)
     {
-        _uiController.showMainMenu(false, false);
+        showMainMenu(false, false);
         _sceneController.startMemory(memoryId);
     }
 
-    public async void Initialize()
+    public void Initialize()
     {
+        _applicationMessageSubscriber.Subscribe(OnApplicationMessage);
+
         loadLocale();
-        await _uiViewManager.Init();
-        showMainMenu();
+        initMainMenu();
     }
 
     private void loadLocale()
@@ -49,7 +53,7 @@ public class GameController : ITickable, ILateTickable, IFixedTickable, IInitial
         _localeManager.addBundle(strings.text);
     }
 
-    private void showMainMenu()
+    private void initMainMenu()
     {
         bool newGame = _saveStateController.loadCurrentSave();
         // load latest scene -or- starting scene
@@ -59,18 +63,71 @@ public class GameController : ITickable, ILateTickable, IFixedTickable, IInitial
         }
         _sceneController.loadScene(_saveStateController.CurrentSave.sceneId);
 
-        _uiController.initMainMenu();
-        _uiController.showMainMenu();
-        _uiController.showResumeButton(!newGame);
-        _uiController.showLoadButton(!newGame && _saveStateController.getTotalSaves() > 0);
-        _uiController.newGame.Add(handleNewGame);
-        _uiController.resumeGame.Add(handleResumeGame);
-        _uiController.unpauseGame.Add(handleUnPauseGame);
-        _uiController.pauseGame.Add(handlePauseGame);
-        _uiController.loadGame.Add(handleLoadGame);
-        _uiController.quitGame.Add(handleQuitGame);
+        _mainMenuController.init();
+        _mainMenuController.newGame.Add(handleNewGame);
+        _mainMenuController.resumeGame.Add(handleResumeGame);
+        _mainMenuController.loadGame.Add(handleLoadGame);
+        _mainMenuController.quitGame.Add(handleQuit);
+
+        _mainMenuController.allowResume(!newGame);
+        _mainMenuController.allowLoad(!newGame && _saveStateController.getTotalSaves() > 0);
+        showMainMenu();
     }
-       
+
+    public void showMainMenu(bool show = true, bool fadeFromBlack = true, float fadeTime = -1)
+    {
+        if (show)
+        {
+            if (fadeFromBlack)
+            {
+                _uiController.fade(false, default(Color), -1, 1f);
+            }
+            handlePause();
+        }
+
+        _mainMenuController.show(show, fadeTime);
+    }
+
+    private void OnApplicationMessage(ApplicationMessage applicationMessage)
+    {
+        switch (applicationMessage.ApplicationAction)
+        {
+            case ApplicationAction.Pause:
+                handlePause();
+                break;
+            case ApplicationAction.UnPause:
+                handleUnPause();
+                break;
+            case ApplicationAction.Quit:
+                handleQuit();
+                break;
+            case ApplicationAction.ShowMainMenu:
+                showMainMenu(true, false);
+                break;
+        }
+    }
+
+    private void handlePause()
+    {
+        _gamePaused = true;
+        _dialogueController.pause();
+    }
+
+    private void handleUnPause()
+    {
+        _gamePaused = false;
+        _dialogueController.resume();
+    }
+
+    private void handleQuit()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
+    }
+
     private void handleNewGame()
     {
         _dialogueController.stop();
@@ -78,20 +135,10 @@ public class GameController : ITickable, ILateTickable, IFixedTickable, IInitial
         _uiController.fade(true);
     }
 
-    private void handlePauseGame()
-    {
-        _dialogueController.pause();
-    }
-
-    private void handleUnPauseGame()
-    {
-        _dialogueController.resume();
-    }
-
     private void handleResumeGame()
     {
         restoreMemories(_saveStateController.CurrentSave);
-        _uiController.showMainMenu(false, false);
+        showMainMenu(false, false);
         _dialogueController.resume();
     }
 
@@ -100,11 +147,6 @@ public class GameController : ITickable, ILateTickable, IFixedTickable, IInitial
         _saveStateController.saveGameSelected.AddOnce(handleSaveGameSelected);
         _saveStateController.closeButtonClicked.AddOnce(handleSaveGameSelectionClosed);
         _saveStateController.show();
-    }
-
-    private void handleQuitGame()
-    {
-        Application.Quit();
     }
 
     private void handleSaveGameSelectionClosed()
@@ -125,7 +167,7 @@ public class GameController : ITickable, ILateTickable, IFixedTickable, IInitial
     private void loadGame(SaveGame saveGame)
     {
         restoreMemories(saveGame);
-        _uiController.showMainMenu(false, false, 0);
+        showMainMenu(false, false, 0);
         // load latest scene -or- starting scene
         _sceneController.loadScene(saveGame.sceneId);
     }
@@ -145,9 +187,9 @@ public class GameController : ITickable, ILateTickable, IFixedTickable, IInitial
 
     private void newGame()
     {
-        _uiController.showMainMenu(false, true, 0);
-        _uiController.showResumeButton();
-        _uiController.showLoadButton();
+        showMainMenu(false, true, 0);
+        _mainMenuController.allowResume(true);
+        _mainMenuController.allowLoad(true);
 
         _dialogueController.reset();
         _saveStateController.createNewSave();

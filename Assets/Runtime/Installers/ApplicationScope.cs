@@ -25,7 +25,10 @@ public class ApplicationScope : LifetimeScope
         builder.Register<InboxController>(Lifetime.Singleton);
         builder.Register<CameraController>(Lifetime.Singleton);
         builder.Register<ClockController>(Lifetime.Singleton);
-        builder.Register<UIViewManager>(Lifetime.Singleton);
+        builder.Register<MessageChannel<ApplicationMessage>>(Lifetime.Singleton).AsImplementedInterfaces();
+
+        // Message Channels
+        builder.Register<AddressablesAssetService>(Lifetime.Singleton);
 
         new DynamicGameObjectInstaller().Install(builder);
     }

@@ -5,41 +5,29 @@ using DG.Tweening;
 
 public class UIController
 {
-    public Signal newGame;
-    public Signal resumeGame;
-    public Signal unpauseGame;
-    public Signal pauseGame;
-    public Signal loadGame;
-    public Signal quitGame;
     public Signal fadeComplete;
     private TextOverlayView _textOverlay;
     private GameObject _fadeScreen;
     private const float FADE_TIME = 0.5f;
     readonly UICreator _uiCreator;
-    readonly MainMenuController _mainMenuController;
     readonly HudController _hudController;
     readonly TextOverlayController _textOverlayController;
     readonly JournalController _journalController;
+    readonly IPublisher<ApplicationMessage> _applicationMessagePublisher;
 
-    public UIController(UICreator uiCreator, MainMenuController mainMenuController, HudController hudController, TextOverlayController textOverlayController, JournalController journalController)
+    public UIController(UICreator uiCreator, HudController hudController, TextOverlayController textOverlayController, JournalController journalController, IPublisher<ApplicationMessage> applicationMessagePublisher)
     {
         _uiCreator = uiCreator;
-        _mainMenuController = mainMenuController;
         _hudController = hudController;
         _textOverlayController = textOverlayController;
         _journalController = journalController;
+        _applicationMessagePublisher = applicationMessagePublisher;
 
         init();
     }
 
     private void init()
     {
-        newGame = new Signal();
-        resumeGame = new Signal();
-        pauseGame = new Signal();
-        unpauseGame = new Signal();
-        loadGame = new Signal();
-        quitGame = new Signal();
         fadeComplete = new Signal();
         _hudController.showScreen.Add(handleShowScreen);
     }
@@ -47,47 +35,6 @@ public class UIController
     public void showClock(bool show, double costInMinutes = 0)
     {
         _hudController.showClock(show, costInMinutes);
-    }
-
-    public void initMainMenu()
-    {
-        _mainMenuController.init();
-    }
-
-    public void showMainMenu(bool show = true, bool fadeFromBlack = true, float fadeTime = -1)
-    {
-        if (show)
-        {
-            _mainMenuController.newGame.Add(newGame.Dispatch);
-            _mainMenuController.resumeGame.Add(resumeGame.Dispatch);
-            _mainMenuController.loadGame.Add(loadGame.Dispatch);
-            _mainMenuController.quitGame.Add(quitGame.Dispatch);
-
-            if (fadeFromBlack)
-            {
-                fade(false, default(Color), -1, 1f);
-            }
-            pauseGame.Dispatch();
-        }
-        else
-        {
-            _mainMenuController.newGame.Remove(newGame.Dispatch);
-            _mainMenuController.resumeGame.Remove(resumeGame.Dispatch);
-            _mainMenuController.loadGame.Remove(loadGame.Dispatch);
-            _mainMenuController.quitGame.Remove(quitGame.Dispatch);
-        }
-
-        _mainMenuController.show(show, fadeTime);
-    }
-
-    public void showResumeButton(bool show = true)
-    {
-        _mainMenuController.allowResume(show);
-    }
-
-    public void showLoadButton(bool show = true)
-    {
-        _mainMenuController.allowLoad(show);
     }
 
     public void showHud(bool show = true)
@@ -101,11 +48,11 @@ public class UIController
         if (show)
         {
             _journalController.closeButtonClicked.AddOnce(handleJournalClose);
-            pauseGame.Dispatch();
+            pauseGame();
         }
         else
         {
-            unpauseGame.Dispatch();
+            unPauseGame();
         }
         
         _journalController.show(show);
@@ -154,12 +101,22 @@ public class UIController
 		image.DOFade(finalAlpha, fadeTime).SetDelay(delay).OnComplete(delegate () { if (finalAlpha == 0) { _fadeScreen.SetActive(false); } handleFadeComplete(); });
     }
 
+    private void pauseGame()
+    {
+        _applicationMessagePublisher.Publish(new ApplicationMessage(ApplicationAction.Pause));
+    }
+
+    private void unPauseGame()
+    {
+        _applicationMessagePublisher.Publish(new ApplicationMessage(ApplicationAction.UnPause));
+    }
+
     private void handleShowScreen(Screens.Name screenName)
     {
         switch(screenName)
         {
             case Screens.Name.MainMenu :
-                showMainMenu(true, false);
+                _applicationMessagePublisher.Publish(new ApplicationMessage(ApplicationAction.ShowMainMenu));
                 showHud(false);
                 break;
 
@@ -180,7 +137,7 @@ public class UIController
         if (_journalController.showing)
         {
             _journalController.show(false);
-            unpauseGame.Dispatch();
+            unPauseGame();
         }
     }
 

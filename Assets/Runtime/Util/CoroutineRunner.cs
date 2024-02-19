@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CoroutineRunner : MonoBehaviour
@@ -7,48 +6,37 @@ public class CoroutineRunner : MonoBehaviour
     private System.Action _delayedAction;
     private System.Action _delayedUpdateAction;
     private IEnumerator _delayedActionProcess;
-    private bool _pauseDelayedUpdateAction = false;
     private float _delayedUpdateActionRemainingTime = 0f;
 
-    public void run(IEnumerator process)
+    public void Run(IEnumerator process)
     {
         StartCoroutine(process);
     }
 
-    public void stop(IEnumerator process)
+    public void Stop(IEnumerator process)
     {
         StopCoroutine(process);
     }
 
-    public bool pauseDelayedUpdateAction
-    {
-        get
-        {
-            return _pauseDelayedUpdateAction;
-        }
-        set
-        {
-            _pauseDelayedUpdateAction = value;
-        }
-    }
+    public bool PauseDelayedUpdateAction { get; set; } = false;
 
-    public void delayAction(System.Action action, float seconds)
+    public void DelayAction(System.Action action, float seconds)
     {
         _delayedAction = action;
         _delayedActionProcess = delayedActionEnumerator(action, seconds);
-        run(_delayedActionProcess);
+        Run(_delayedActionProcess);
     }
 
-    public void delayUpdateAction(System.Action action, float seconds)
+    public void DelayUpdateAction(System.Action action, float seconds)
     {
         _delayedUpdateActionRemainingTime = seconds;
         _delayedUpdateAction = action;
-        _pauseDelayedUpdateAction = false;
+        PauseDelayedUpdateAction = false;
     }
 
     void Update()
     {
-        if (_delayedUpdateAction != null && !_pauseDelayedUpdateAction)
+        if (_delayedUpdateAction != null && !PauseDelayedUpdateAction)
         {
             _delayedUpdateActionRemainingTime -= Time.deltaTime;
 
@@ -61,11 +49,11 @@ public class CoroutineRunner : MonoBehaviour
         }
     }
 
-    public void runDelayedActionNow()
+    public void RunDelayedActionNow()
     {
         System.Action action = _delayedAction;
 
-        stopDelayedAction();
+        StopDelayedAction();
 
         if (action != null)
         {
@@ -73,7 +61,7 @@ public class CoroutineRunner : MonoBehaviour
         }
     }
 
-    public void runDelayedUpdateActionNow()
+    public void RunDelayedUpdateActionNow()
     {
         if (_delayedUpdateAction != null)
         {
@@ -83,13 +71,13 @@ public class CoroutineRunner : MonoBehaviour
         }
     }
 
-    public void stopDelayedUpdateAction()
+    public void StopDelayedUpdateAction()
     {
         _delayedUpdateAction = null;
-        _pauseDelayedUpdateAction = false;
+        PauseDelayedUpdateAction = false;
     }
 
-    public void stopDelayedAction()
+    public void StopDelayedAction()
     {
         if (_delayedActionProcess != null)
         {
@@ -108,7 +96,7 @@ public class CoroutineRunner : MonoBehaviour
         action();
     }
 
-    public bool runningDelayedAction
+    public bool RunningDelayedAction
     {
         get
         {
@@ -116,7 +104,7 @@ public class CoroutineRunner : MonoBehaviour
         }
     }
 
-    public bool runningDelayedUpdateAction
+    public bool RunningDelayedUpdateAction
     {
         get
         {

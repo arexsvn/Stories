@@ -95,7 +95,7 @@ public class RequestCreator
 		request.downloadHandler = new DownloadHandlerBuffer();
 
 		webRequest.request = request;
-		_coroutineRunner.run(asyncRequest(webRequest));
+		_coroutineRunner.Run(asyncRequest(webRequest));
 	}
 
 	public IEnumerator asyncRequest(WebRequest webRequest)

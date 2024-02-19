@@ -55,7 +55,7 @@ public class RemoteAssetLoader
 		else
 		{
 			remoteAssetRequest.fullUrl = fullUrl;
-			_coroutineRunner.run(asyncRequest(remoteAssetRequest));
+			_coroutineRunner.Run(asyncRequest(remoteAssetRequest));
 		}
 	}
 

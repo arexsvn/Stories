@@ -143,6 +143,9 @@ public class SaveStateController
     public int getTotalSaves()
     {
         string saveDirectoryPath = Path.Combine(Application.persistentDataPath, _saveFolderPath);
+
+        if (string.IsNullOrEmpty(saveDirectoryPath)) { return 0; }
+
         string[] filePaths = Directory.GetFiles(saveDirectoryPath);
 
         return filePaths.Length;

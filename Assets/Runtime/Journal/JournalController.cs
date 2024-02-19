@@ -11,14 +11,14 @@ public class JournalController
     readonly CharacterManager _characterManager;
     readonly MemoryController _memoryController;
     readonly LocaleManager _localeManager;
-    readonly UIViewManager _uiViewManager;
+    readonly AddressablesAssetService _addressablesAssetService;
 
-    public JournalController(CharacterManager characterManager, MemoryController memoryController, LocaleManager localeManager, UIViewManager uiViewManager)
+    public JournalController(CharacterManager characterManager, MemoryController memoryController, LocaleManager localeManager, AddressablesAssetService addressablesAssetService)
     {
         _characterManager = characterManager;
         _memoryController = memoryController;
         _localeManager = localeManager;
-        _uiViewManager = uiViewManager;
+        _addressablesAssetService = addressablesAssetService;
 
         init();
     }
@@ -29,7 +29,7 @@ public class JournalController
 
         if (_view == null)
         {
-            _view = await _uiViewManager.InstantiateAndInjectAsset<JournalView>();
+            _view = await _addressablesAssetService.InstantiateAsset<JournalView>();
             _view.closeButton.onClick.AddListener(closeButtonClicked.Dispatch);
             _view.noEntriesOverlay.gameObject.SetActive(true);
         }

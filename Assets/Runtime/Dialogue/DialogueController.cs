@@ -100,17 +100,17 @@ public class DialogueController
     public void stop()
     {
         _dialogueView.hideAll();
-        _coroutineRunner.stopDelayedUpdateAction();
+        _coroutineRunner.StopDelayedUpdateAction();
     }
 
     public void pause()
     {
-        _coroutineRunner.pauseDelayedUpdateAction = true;
+        _coroutineRunner.PauseDelayedUpdateAction = true;
     }
 
     public void resume()
     {
-        _coroutineRunner.pauseDelayedUpdateAction = false;
+        _coroutineRunner.PauseDelayedUpdateAction = false;
     }
 
     private void loadDialogues(string id)
@@ -247,7 +247,7 @@ public class DialogueController
             displayTime = Mathf.Max(dialogueNode.text.Length * TEXT_TIME_MULTIPLIER, MIN_TEXT_SECONDS);
         }
         
-        _coroutineRunner.delayUpdateAction(advanceDialogue, displayTime);
+        _coroutineRunner.DelayUpdateAction(advanceDialogue, displayTime);
     }
 
     private void displayChoices(List<LeafNode> responses)
@@ -322,9 +322,9 @@ public class DialogueController
 
     private void handleBackgroundClicked()
     {
-        if (_coroutineRunner.runningDelayedUpdateAction)
+        if (_coroutineRunner.RunningDelayedUpdateAction)
         {
-            _coroutineRunner.runDelayedUpdateActionNow();
+            _coroutineRunner.RunDelayedUpdateActionNow();
         }
     }
 }

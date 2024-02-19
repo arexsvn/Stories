@@ -1,11 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-using System;
 
-public class JournalView : MonoBehaviour, IUIView
+public class JournalView : MonoBehaviour
 {
     public TextMeshProUGUI characterNameText;
     public TextMeshProUGUI memoryOutcomesText;
@@ -18,11 +15,6 @@ public class JournalView : MonoBehaviour, IUIView
     public MemoryEntryView memoryEntry;
     public PortraitView characterPortraitEntry;
     public Button closeButton;
-
-    public bool IsFullScreen { get => true; }
-
-    public event Action<IUIView> OnReady;
-    public event Action<IUIView> OnClosed;
 
     private void Awake()
     {
@@ -86,10 +78,5 @@ public class JournalView : MonoBehaviour, IUIView
             fadeTime = 0;
         }
         UITransitions.fade(gameObject, canvasGroup, true, false, fadeTime);
-    }
-
-    public void Init()
-    {
-        //
     }
 }
