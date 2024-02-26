@@ -1,4 +1,4 @@
-using FlowCanvas.Nodes;
+using System.Collections.Generic;
 using UnityEngine;
 using VContainer.Unity;
 
@@ -12,6 +12,8 @@ public class GameController : ITickable, ILateTickable, IFixedTickable, IInitial
     readonly LocaleManager _localeManager;
     readonly ISubscriber<ApplicationMessage> _applicationMessageSubscriber;
     readonly MainMenuController _mainMenuController;
+    readonly IUserApi _userApi;
+    readonly BasicDialogController _basicDialogController;
     private const string START_SCENE = "kitchen";
     public const string STRINGS_PATH = "data/strings";
 
@@ -21,7 +23,9 @@ public class GameController : ITickable, ILateTickable, IFixedTickable, IInitial
                           DialogueController dialogueController, 
                           LocaleManager localeManager,
                           MainMenuController mainMenuController,
-                          ISubscriber<ApplicationMessage> applicationMessageSubscriber) 
+                          ISubscriber<ApplicationMessage> applicationMessageSubscriber,
+                          IUserApi userApi,
+                          BasicDialogController basicDialogController) 
     {
         _uiController = uiController;
         _sceneController = sceneController;
@@ -30,6 +34,8 @@ public class GameController : ITickable, ILateTickable, IFixedTickable, IInitial
         _localeManager = localeManager;
         _mainMenuController = mainMenuController;
         _applicationMessageSubscriber = applicationMessageSubscriber;
+        _basicDialogController = basicDialogController;
+        _userApi = userApi;
     }
 
     // for playing memories from the MemoryCreator tool
@@ -39,11 +45,12 @@ public class GameController : ITickable, ILateTickable, IFixedTickable, IInitial
         _sceneController.startMemory(memoryId);
     }
 
-    public void Initialize()
+    public async void Initialize()
     {
         _applicationMessageSubscriber.Subscribe(OnApplicationMessage);
 
         loadLocale();
+        await _basicDialogController.Init();
         initMainMenu();
     }
 
@@ -128,8 +135,20 @@ public class GameController : ITickable, ILateTickable, IFixedTickable, IInitial
 #endif
     }
 
-    private void handleNewGame()
+    private async void handleNewGame()
     {
+        await _basicDialogController.ShowInputDialog("Test Dialog", "This is a test? Are you really sure we are only testing here?", "Enter some text here!", new List<DialogButtonData> 
+        {
+            new DialogButtonData(async ()=>
+            {
+                GetUserResponse res = await _userApi.GetUser();
+            }, "Get User"),
+            new DialogButtonData(null, "Cancel")
+        });
+        //GetUserResponse res = await _userApi.GetUser();
+
+        return;
+
         _dialogueController.stop();
         _uiController.fadeComplete.AddOnce(newGame);
         _uiController.fade(true);

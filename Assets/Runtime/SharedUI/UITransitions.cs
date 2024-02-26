@@ -2,37 +2,39 @@ using UnityEngine;
 using DG.Tweening;
 using TMPro;
 using UnityEngine.UI;
+using System;
 
 public class UITransitions
 {
 	public const float FADE_TIME = 0.2f;
 
-	public static void fade(GameObject target, CanvasGroup canvasGroup, bool fadeOut = true, bool destroyOnComplete = false, float fadeTime = -1f, bool deactivateOnComplete = true)
+	public static void fade(GameObject target, CanvasGroup canvasGroup, bool fadeOut = true, bool destroyOnComplete = false, float fadeTime = -1f, bool deactivateOnComplete = true, Action<GameObject> complete = null)
 	{
-        applyFade(canvasGroup.DOFade, canvasGroup.DOComplete, target, fadeOut, destroyOnComplete, fadeTime, deactivateOnComplete);
+        applyFade(canvasGroup.DOFade, canvasGroup.DOComplete, target, fadeOut, destroyOnComplete, fadeTime, deactivateOnComplete, complete);
     }
 
-    public static void fade(GameObject target, Image image, bool fadeOut = true, bool destroyOnComplete = false, float fadeTime = -1f, bool deactivateOnComplete = true)
+    public static void fade(GameObject target, Image image, bool fadeOut = true, bool destroyOnComplete = false, float fadeTime = -1f, bool deactivateOnComplete = true, Action<GameObject> complete = null)
     {
-        applyFade(image.DOFade, image.DOComplete, target, fadeOut, destroyOnComplete, fadeTime, deactivateOnComplete);
+        applyFade(image.DOFade, image.DOComplete, target, fadeOut, destroyOnComplete, fadeTime, deactivateOnComplete, complete);
     }
 
-    public static void fade(GameObject target, TextMeshProUGUI text, bool fadeOut = true, bool destroyOnComplete = false, float fadeTime = -1f, bool deactivateOnComplete = true)
+    public static void fade(GameObject target, TextMeshProUGUI text, bool fadeOut = true, bool destroyOnComplete = false, float fadeTime = -1f, bool deactivateOnComplete = true, Action<GameObject> complete = null)
     {
-        applyFade(text.DOFade, text.DOComplete, target, fadeOut, destroyOnComplete, fadeTime, deactivateOnComplete);
+        applyFade(text.DOFade, text.DOComplete, target, fadeOut, destroyOnComplete, fadeTime, deactivateOnComplete, complete);
     }
 
-    private static void applyFade(System.Func<float, float, Tween> fadeAction, 
-                                 System.Func<bool, int> completeAction, 
-                                 GameObject target, 
-                                 bool fadeOut = true, 
-                                 bool destroyOnComplete = false, 
-                                 float fadeTime = -1f, 
-                                 bool deactivateOnComplete = true)
+    private static void applyFade(Func<float, float, Tween> fadeAction, 
+                                  Func<bool, int> completeAction, 
+                                  GameObject target, 
+                                  bool fadeOut = true, 
+                                  bool destroyOnComplete = false, 
+                                  float time = -1f, 
+                                  bool deactivateOnComplete = true,
+                                  Action<GameObject> complete = null)
     {
-        if (fadeTime == -1f)
+        if (time == -1f)
         {
-            fadeTime = FADE_TIME;
+            time = FADE_TIME;
         }
 
         if (fadeOut)
@@ -41,22 +43,32 @@ public class UITransitions
             {
                 if (destroyOnComplete)
                 {
-                    Object.Destroy(target);
+                    UnityEngine.Object.Destroy(target);
                 }
                 else if(deactivateOnComplete)
                 {
                     target.SetActive(false);
                 }
+
+                complete?.Invoke(target);
             };
 
-            completeAction(true);
-            fadeAction(0, fadeTime).OnComplete(fadeComplete);
+            completeAction(false);
+            fadeAction(0, time).OnComplete(fadeComplete);
         }
         else
         {
-            completeAction(true);
+            completeAction(false);
             target.SetActive(true);
-            fadeAction(1, fadeTime);
+
+            if (complete != null)
+            {
+                fadeAction(1, time).OnComplete(() => complete(target));
+            }
+            else
+            {
+                fadeAction(1, time);
+            }
         }
     }
 }

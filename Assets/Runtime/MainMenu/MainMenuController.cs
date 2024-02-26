@@ -37,10 +37,10 @@ public class MainMenuController
         GameObject prefab = (GameObject)Object.Instantiate(Resources.Load(PREFAB));
         _view = prefab.GetComponent<MainMenuView>();
         _view.title.text = _localeManager.lookup("application_title");
-        _resumeButton = _uiCreator.addButton(_view.buttonContainer, new ButtonVO(resumeGame.Dispatch, _localeManager.lookup("application_resume"), null, BUTTON_PREFAB));
-        _loadButton = _uiCreator.addButton(_view.buttonContainer, new ButtonVO(loadGame.Dispatch, _localeManager.lookup("application_load"), null, BUTTON_PREFAB));
-        _uiCreator.addButton(_view.buttonContainer, new ButtonVO(newGame.Dispatch, _localeManager.lookup("application_new"), null, BUTTON_PREFAB));
-        _uiCreator.addButton(_view.buttonContainer, new ButtonVO(quitGame.Dispatch, _localeManager.lookup("application_quit"), null, BUTTON_PREFAB));
+        _resumeButton = _uiCreator.addButton(_view.buttonContainer, new ButtonData(resumeGame.Dispatch, _localeManager.lookup("application_resume"), null, BUTTON_PREFAB));
+        _loadButton = _uiCreator.addButton(_view.buttonContainer, new ButtonData(loadGame.Dispatch, _localeManager.lookup("application_load"), null, BUTTON_PREFAB));
+        _uiCreator.addButton(_view.buttonContainer, new ButtonData(newGame.Dispatch, _localeManager.lookup("application_new"), null, BUTTON_PREFAB));
+        _uiCreator.addButton(_view.buttonContainer, new ButtonData(quitGame.Dispatch, _localeManager.lookup("application_quit"), null, BUTTON_PREFAB));
 
         _inited = true;
     }

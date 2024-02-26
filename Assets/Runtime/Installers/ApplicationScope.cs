@@ -25,11 +25,16 @@ public class ApplicationScope : LifetimeScope
         builder.Register<InboxController>(Lifetime.Singleton);
         builder.Register<CameraController>(Lifetime.Singleton);
         builder.Register<ClockController>(Lifetime.Singleton);
-        builder.Register<MessageChannel<ApplicationMessage>>(Lifetime.Singleton).AsImplementedInterfaces();
+        builder.Register<WebRequestService>(Lifetime.Singleton);
+        builder.Register<ConnectionConfiguration>(Lifetime.Singleton);
+        builder.Register<JsonSerializationOption>(Lifetime.Singleton).AsImplementedInterfaces();
+        builder.Register<BasicDialogController>(Lifetime.Singleton);
+        builder.Register<AddressablesAssetService>(Lifetime.Singleton).AsImplementedInterfaces().AsSelf();
 
         // Message Channels
-        builder.Register<AddressablesAssetService>(Lifetime.Singleton);
+        builder.Register<MessageChannel<ApplicationMessage>>(Lifetime.Singleton).AsImplementedInterfaces();
 
         new DynamicGameObjectInstaller().Install(builder);
+        new UserInstaller().Install(builder);
     }
 }

@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.Events;
 using System.Collections.Generic;
 
@@ -8,26 +7,29 @@ public class UICreator
 	private const string BUTTON_PATH = "UI/Button";
 	private const string TEXT_AREA_PATH = "UI/TextArea";
 	private const string DIALOG_PATH = "UI/DialogBox";
+    private const string FADE_SCREEN_PREFAB = "UI/ScreenFade";
+    private const string TEXT_OVERLAY_PREFAB = "UI/TextOverlay";
+    private const string LIST_VIEW_PATH = "UI/SimpleListView";
 
-    public ButtonView addButton(GameObject container, ButtonVO vo)
+    public ButtonView addButton(GameObject container, ButtonData buttonData)
     {
         string buttonPrefabResourceKey = BUTTON_PATH;
 
-        if (vo.prefabResourceKey != null)
+        if (buttonData.prefabResourceKey != null)
         {
-            buttonPrefabResourceKey = vo.prefabResourceKey;
+            buttonPrefabResourceKey = buttonData.prefabResourceKey;
         }
 
         GameObject buttonPrefab = (GameObject)Object.Instantiate(Resources.Load(buttonPrefabResourceKey), container.transform);
         ButtonView buttonView = buttonPrefab.GetComponent<ButtonView>();
         string textColor = null;
         buttonView.button.onClick.RemoveAllListeners();
-        buttonView.button.onClick.AddListener(vo.action);
-        buttonView.labelText.text = vo.label;
+        buttonView.button.onClick.AddListener(buttonData.action);
+        buttonView.labelText.text = buttonData.label;
 
-        if (vo.textColor != null)
+        if (buttonData.textColor != null)
         {
-            textColor = vo.textColor;
+            textColor = buttonData.textColor;
         }
 
         Color newColor;
@@ -38,18 +40,18 @@ public class UICreator
             buttonView.labelText.color = newColor;
         }
 
-        if (vo.backgroundColor != null)
+        if (buttonData.backgroundColor != null)
         {
-            ColorUtility.TryParseHtmlString(vo.backgroundColor, out newColor);
+            ColorUtility.TryParseHtmlString(buttonData.backgroundColor, out newColor);
             buttonView.buttonImage.color = newColor;
         }
 
-        buttonView.button.interactable = vo.interactable;
+        buttonView.button.interactable = buttonData.interactable;
 
         return buttonView;
     }
 
-    public DialogView showDialog(string title, string description, List<ButtonVO> buttons = null, string prefabResourceKey = DIALOG_PATH)
+    public DialogView showDialog(string title, string description, List<ButtonData> buttons = null, string prefabResourceKey = DIALOG_PATH)
 	{
 		GameObject prefab = (GameObject)Object.Instantiate(Resources.Load(prefabResourceKey));
 		DialogView dialogView = prefab.GetComponent<DialogView>();
@@ -57,11 +59,19 @@ public class UICreator
         updateDialog(dialogView, title, description, buttons);
 			
 		dialogView.fadeIn();
+        return dialogView;
+    }
 
-		return dialogView;
-	}
-		
-    public void updateDialog(DialogView dialogView, string title, string description, List<ButtonVO> buttons = null)
+    public BasicListView showBasicListView(string title, List<DialogButtonData> buttons = null, string prefabResourceKey = LIST_VIEW_PATH)
+    {
+        BasicListView view = Object.Instantiate(Resources.Load<BasicListView>(prefabResourceKey));
+        view.Init();
+        view.Set(title, buttons);
+
+        return view;
+    }
+
+    public void updateDialog(DialogView dialogView, string title, string description, List<ButtonData> buttons = null)
     {
         if (dialogView.titleText != null)
         {
@@ -79,7 +89,7 @@ public class UICreator
         {
             int buttonIndex = 0;
 
-            foreach (ButtonVO vo in buttons)
+            foreach (ButtonData vo in buttons)
             {
                 addButton(dialogView.buttonContainer, vo);
                 buttonIndex++;
@@ -90,7 +100,7 @@ public class UICreator
     public DialogView showErrorDialog(string errorString, System.Action actionToRetry = null, string buttonText = null, bool allowCancel = false, System.Action actionOnClose = null)
 	{
 		DialogView dialog = null;
-		List<ButtonVO> actions = new List<ButtonVO>();
+		List<ButtonData> actions = new List<ButtonData>();
 
         UnityAction closeDialog = delegate
 		{
@@ -113,7 +123,7 @@ public class UICreator
 				Object.Destroy(dialog.gameObject);
 				actionToRetry();
 			};
-			actions.Add(new ButtonVO(retryAction, buttonText));
+			actions.Add(new ButtonData(retryAction, buttonText));
 		}
 		else
 		{
@@ -122,12 +132,12 @@ public class UICreator
 				buttonText = "OK";
 			}
 
-			actions.Add(new ButtonVO(closeDialog, buttonText));
+			actions.Add(new ButtonData(closeDialog, buttonText));
 		}
 
 		if (allowCancel)
 		{
-			actions.Add(new ButtonVO(closeDialog, "CANCEL"));
+			actions.Add(new ButtonData(closeDialog, "CANCEL"));
 		}
 
 		dialog = showDialog("ERROR", errorString, actions);
@@ -140,7 +150,7 @@ public class UICreator
 		                                     System.Action cancelButtonAction = null, string cancelButtonText = null)
 	{
 		DialogView dialog = null;
-		List<ButtonVO> actions = new List<ButtonVO>();
+		List<ButtonData> actions = new List<ButtonData>();
 
 		if (confirmButtonText == null)
 		{
@@ -154,7 +164,7 @@ public class UICreator
 				Object.Destroy(dialog.gameObject);
 				confirmButtonAction();
 			};
-			actions.Add(new ButtonVO(doOkAction, confirmButtonText));
+			actions.Add(new ButtonData(doOkAction, confirmButtonText));
 		}
 		else
 		{
@@ -162,7 +172,7 @@ public class UICreator
 			{
 				Object.Destroy(dialog.gameObject);
 			};
-			actions.Add(new ButtonVO(closeDialog, confirmButtonText));
+			actions.Add(new ButtonData(closeDialog, confirmButtonText));
 		}
 
 		if (cancelButtonAction != null)
@@ -177,7 +187,7 @@ public class UICreator
 				Object.Destroy(dialog.gameObject);
 				cancelButtonAction();
 			};
-			actions.Add(new ButtonVO(doCancelAction, cancelButtonText));
+			actions.Add(new ButtonData(doCancelAction, cancelButtonText));
 		}
 
 		dialog = showDialog(titleString, messageString, actions);
@@ -191,9 +201,6 @@ public class UICreator
 
 		return gameObject;
 	}
-
-    private static string FADE_SCREEN_PREFAB = "UI/ScreenFade";
-    private static string TEXT_OVERLAY_PREFAB = "UI/TextOverlay";
 
     public GameObject createTextOverlay()
     {
@@ -210,64 +217,16 @@ public class UICreator
     }
 }
 
-public class ButtonVO
+/*
+public class ButtonData
 {
-    public UnityAction action;
     public string label;
-	public string prefabResourceKey;
-	public string iconResourceKey;
-	public bool interactable = true;
-	private bool _grayOut = false;
-	public string textColor;
-	public string backgroundColor;
-	public const string GOLD_TEXT_COLOR = "#724B1AFF";
-    public const string GOLD_BG_COLOR = "#FFD96FFF";
-    public const string DISABLED_TEXT_COLOR = "#808080FF";
-    public const string DISABLED_BG_COLOR = "#2F3C45FF";
-    public const string BLUE_BG_COLOR = "#445F80C8";
-    public const string WHITE_BG_COLOR = "#FDFDFDFF";
-	public const string BLUE_TEXT_COLOR = "#284461FF";
-	public const string WHITE_TEXT_COLOR = "#FDFDFDFF";
+    public UnityAction action;
 
-	public ButtonVO(UnityAction action, string label = null, string iconResourceKey = null, string prefabResourceKey = null)
-	{
-		this.action = action;
-		this.label = label;
-		this.iconResourceKey = iconResourceKey;
-        this.prefabResourceKey = prefabResourceKey;
+    public ButtonData(string label, UnityAction action)
+    {
+        this.label = label;
+        this.action = action;
     }
-
-	public bool disable
-	{
-		set
-		{
-			grayOut = value;
-			interactable = !value;
-		}
-	}
-				
-	public bool grayOut
-	{
-		set
-		{
-			_grayOut = value;
-
-			if (_grayOut)
-			{
-				textColor = DISABLED_TEXT_COLOR;
-				backgroundColor = DISABLED_BG_COLOR;
-			}
-		}
-
-		get
-		{
-			return _grayOut;
-		}
-	}
-
-	public void makeGoldButton()
-	{
-		textColor = GOLD_TEXT_COLOR;
-		backgroundColor = GOLD_BG_COLOR;
-	}
 }
+*/

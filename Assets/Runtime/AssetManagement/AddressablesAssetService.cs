@@ -6,7 +6,7 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 using VContainer;
 using VContainer.Unity;
 
-public class AddressablesAssetService : IDisposable
+public class AddressablesAssetService : IAssetService, IDisposable
 {
     public event Action<string> LoadError;
     private readonly IObjectResolver _dependencyInjectionContainer;
@@ -32,16 +32,21 @@ public class AddressablesAssetService : IDisposable
             assetName = typeof(T).Name;
         }
 
-        GameObject viewGameObject = await InstantiateAsset(assetName, container, cancellationToken); ;
+        GameObject viewGameObject = await InstantiateAsset(assetName, container, cancellationToken);
+
+        if (viewGameObject == null)
+        {
+            return default;
+        }
 
         return viewGameObject.GetComponent<T>();
     }
 
     /// <summary>
     /// Instantiate an asset that needs dependency injection.
-    /// <param name="assetName">Asset name.</param>
-    /// <param name="parentView"> The parent view associated with this asset. If parent is destroyed, this asset will be as well.</param>
-    /// <param name="container"> (optional) Transform we should load into. If left 'null' will NOT be added to any transform.</param>
+    /// <param name="assetName">Asset name / Addressable key.</param>
+    /// <param name="parentView">The parent view associated with this asset. If parent is destroyed, this asset will be as well.</param>
+    /// <param name="container">(optional) Transform we should load into. If left 'null' will NOT be added to any transform.</param>
     /// <param name="cancellationToken">(optional) Token to cancel the load.</param>
     /// </summary>
     public async Task<GameObject> InstantiateAsset(string assetName, Transform container = null, CancellationToken cancellationToken = default)
@@ -53,42 +58,21 @@ public class AddressablesAssetService : IDisposable
         }
 
         AsyncOperationHandle<GameObject> handle = UnityEngine.AddressableAssets.Addressables.InstantiateAsync(assetName, container);
-        GameObject viewGameObject = await InstantiateAsync(handle, cancellationToken);
-
-        return viewGameObject;
-    }
-
-    public void DisposeAsset(GameObject gameObject)
-    {
-        // If a GameObject is loaded via Addressables, ReleaseInstance returns 'true' and will destroy it and decrement the reference count.
-        //   If it returns 'false' it needs to be Destroyed manually.
-        if (!UnityEngine.AddressableAssets.Addressables.ReleaseInstance(gameObject))
+        try
         {
-            Debug.LogWarning($"[AssetService] DisposeGameObject is being called on a non-addressable asset. {gameObject.name}.");
-            GameObject.Destroy(gameObject);
+            while (!cancellationToken.IsCancellationRequested && handle.Task.Status != TaskStatus.RanToCompletion && !handle.IsDone)
+            {
+                await handle.Task;
+            }
         }
-    }
-
-    private async Task<GameObject> InstantiateAsync(AsyncOperationHandle<GameObject> handle, CancellationToken cancellationToken = default)
-    {
-        // It is possible this task is already done due to the asset being loaded previously. If so, do not attempt to run it again as
-        //   it causes an assert.
-        if (handle.Task.Status != TaskStatus.RanToCompletion)
+        catch (Exception e)
         {
-            try
-            {
-                await Task.Run(() => handle.Task, cancellationToken);
-            }
-            catch (Exception e)
-            {
-                Debug.LogError($"[AssetService] LoadAssetAsync : Exception while instantiating view '{e.Message}'");
-                return null;
-            }
+            LoadError?.Invoke($"[AssetService] LoadAssetAsync : Exception while instantiating view '{e.Message}'");
+            return null;
         }
 
         if (handle.Status == AsyncOperationStatus.Failed || handle.Result == null)
         {
-            Debug.LogError($"[AssetService] Failed to instantiate asset {handle.DebugName}.");
             LoadError?.Invoke($"[AssetService] Failed to instantiate asset {handle.DebugName}.");
             return null;
         }
@@ -99,9 +83,21 @@ public class AddressablesAssetService : IDisposable
             return null;
         }
 
-        InjectDependencies(handle.Result);
+        GameObject viewGameObject = handle.Result;
 
-        return handle.Result;
+        InjectDependencies(viewGameObject);
+        
+        return viewGameObject;
+    }
+
+    public void DisposeAsset(GameObject gameObject)
+    {
+        // If a GameObject is loaded via Addressables, ReleaseInstance returns 'true' and will destroy it and decrement the reference count.
+        //   If it returns 'false' it needs to be Destroyed manually.
+        if (!UnityEngine.AddressableAssets.Addressables.ReleaseInstance(gameObject))
+        {
+            GameObject.Destroy(gameObject);
+        }
     }
 
     private void InjectDependencies<T>(T target)

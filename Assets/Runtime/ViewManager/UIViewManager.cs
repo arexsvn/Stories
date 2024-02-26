@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.ResourceManagement.AsyncOperations;
 
 /// <summary>
 /// UIViewManager
 ///
-/// Handles the instantiation of views through the Addressables system.
-/// Will manage the lifecycle of views including back button handling via 'PopViewFromStack'.
+/// Handles the instantiation of views through an IAssetService.
+/// Will manage the lifecycle of views including back button handling via UIViewStack.
 /// </summary>
 public class UIViewManager : IDisposable
 {
@@ -23,12 +22,13 @@ public class UIViewManager : IDisposable
 	private Dictionary<string, IUIView> _viewCache;
 	private Dictionary<IUIView, List<GameObject>> _viewChildAssets;
 	
-    private readonly AddressablesAssetService _addressablesAssetService;
+    private readonly IAssetService _assetService;
     private readonly UIViewStack _uiViewStack;
 
-    public UIViewManager(AddressablesAssetService addressablesAssetService, UIViewStack uiViewStack)
+    public UIViewManager(IAssetService assetService, UIViewStack uiViewStack)
     {
-		_addressablesAssetService = addressablesAssetService;
+		_assetService = assetService;
+		_assetService.LoadError += ViewLoadError;
 		_uiViewStack = uiViewStack;
     }
 
@@ -36,17 +36,7 @@ public class UIViewManager : IDisposable
     {
 	    if (uiCanvas == null)
 	    {
-		    var handle = UnityEngine.AddressableAssets.Addressables.InstantiateAsync(UI_CANVAS_KEY);
-		    await Task.Run(() => handle.Task);
-
-		    if (handle.Status == AsyncOperationStatus.Failed)
-		    {
-			    Debug.LogError($"No {UI_CANVAS_KEY} found");
-		    }
-		    else
-		    {
-			    _uiCanvas = handle.Result.GetComponent<IUICanvas>();
-		    }
+			_uiCanvas = await _assetService.InstantiateAsset<IUICanvas>(null, UI_CANVAS_KEY);
 	    }
 	    else
 	    {
@@ -93,11 +83,11 @@ public class UIViewManager : IDisposable
 	/// <summary>
 	/// Show a view. Will instantiate and parent to the correct canvas transform. 'UIView.ifFullScreen=true' can be used for
 	///    'fullscreen' Screens and 'UIView.ifFullScreen=false' will treat the view as a dialog.
-	/// <param name="assetName">Asset name of view, will be used to lookup the Addressable asset.</param>
+	/// <param name="assetName">Asset name of view, will be used to lookup the asset.</param>
 	/// <param name="animate">(optional, default 'true') Animate the view opening.</param>
 	/// <param name="cache">(optional, default 'true') Should the view stay cached or destroyed when closed.</param>
 	/// </summary>
-	public async Task<IUIView> ShowViewAsync(string assetName, bool animate = true, bool cache = true)
+	public async Task<IUIView> ShowViewAsync(string assetName, bool animate = true, bool cache = true, CancellationToken cancellationToken = default)
 	{
 		Debug.Log($"UIViewManager::ShowViewAsync : Showing view {assetName}");
 		
@@ -115,13 +105,13 @@ public class UIViewManager : IDisposable
 
 		if (newView == null)
 		{
-			GameObject viewGameObject = await InstantiateAssetAsync(assetName);
-			newView = viewGameObject.GetComponent<IUIView>();
+			GameObject viewGameObject = await _assetService.InstantiateAsset(assetName, null, cancellationToken);
+            newView = viewGameObject.GetComponent<IUIView>();
 
 			if (newView == null)
 			{
 				Debug.LogError($"UIViewManager :: View '{assetName}' does not have a component that implements IUIView so will not be added to the canvas.");
-                _addressablesAssetService.DisposeAsset(viewGameObject);
+                _assetService.DisposeAsset(viewGameObject);
 				return null;
 			}
 
@@ -150,14 +140,14 @@ public class UIViewManager : IDisposable
 		return newView;
 	}
 	
-	public async Task<T> ShowViewAsync<T>(bool animate = true, bool cache = true, string assetName = null)
+	public async Task<T> ShowViewAsync<T>(bool animate = true, bool cache = true, CancellationToken cancellationToken = default, string assetName = null)
 	{
 		if (assetName == null)
 		{
 			assetName = typeof(T).Name;
 		}
 
-		return (T)await ShowViewAsync(assetName, animate, cache);
+		return (T)await ShowViewAsync(assetName, animate, cache, cancellationToken);
 	}
 
 	/// <summary>
@@ -225,7 +215,7 @@ public class UIViewManager : IDisposable
 			return null;
         }
 		
-		GameObject viewGameObject = await _addressablesAssetService.InstantiateAsset(assetName, container, cancellationToken);
+		GameObject viewGameObject = await _assetService.InstantiateAsset(assetName, container, cancellationToken);
 
         if (parentView != null)
 		{
@@ -324,7 +314,7 @@ public class UIViewManager : IDisposable
 	}
 
 	/// <summary>
-	/// Cleans up a specific view. It will either be released if an addressable or destroyed if not.
+	/// Cleans up and disposes a specific view.
 	/// </summary>
 	public void DisposeView(IUIView view)
     {
@@ -346,11 +336,11 @@ public class UIViewManager : IDisposable
 			{
 				foreach (GameObject childAsset in _viewChildAssets[view])
 				{
-                    _addressablesAssetService.DisposeAsset(childAsset);
+                    _assetService.DisposeAsset(childAsset);
 				}
 				_viewChildAssets.Remove(view);
 			}
-            _addressablesAssetService.DisposeAsset(behaviour.gameObject);
+            _assetService.DisposeAsset(behaviour.gameObject);
 		}
     }
 
@@ -369,23 +359,6 @@ public class UIViewManager : IDisposable
 		}
 
 		return false;
-	}
-	
-	private async Task<GameObject> InstantiateAssetAsync(string assetName, CancellationToken cancellationToken = default)
-    {
-		GameObject gameObject = await _addressablesAssetService.InstantiateAsset(assetName, null, cancellationToken);
-        if (gameObject == null) 
-		{
-			return null;
-		}
-
-		IUIView view = gameObject.GetComponent<IUIView>();
-		if (view == null)
-		{
-            return null;
-        }
-
-        return gameObject;
 	}
 
     private void HandleViewShown(IUIView view)
@@ -429,7 +402,7 @@ public class UIViewManager : IDisposable
 				MonoBehaviour canvasComponent = _uiCanvas as MonoBehaviour;
 				if (canvasComponent != null && canvasComponent.gameObject != null)
 				{
-                    _addressablesAssetService.DisposeAsset(canvasComponent.gameObject);
+                    _assetService.DisposeAsset(canvasComponent.gameObject);
 				}
 				_uiCanvas = null;
 			}
