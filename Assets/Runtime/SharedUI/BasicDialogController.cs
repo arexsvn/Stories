@@ -43,7 +43,7 @@ public class BasicDialogController
         return dialog;
     }
 
-    public async Task<BasicDialogView> ShowInputDialog(string title, string message = null, string placeholderInputMessage = null, List<DialogButtonData> buttons = null, string assetName = null, bool showCloseButton = true, UnityAction closeAction = null)
+    public async Task<BasicInputDialogView> ShowInputDialog(string title, string message = null, string placeholderInputMessage = null, List<DialogButtonData> buttons = null, string assetName = null, bool showCloseButton = true, UnityAction closeAction = null)
     {
         if (string.IsNullOrEmpty(assetName))
         {
@@ -69,14 +69,14 @@ public class BasicDialogController
         return view;
     }
 
-    public void HideView<T>(string assetName = null, bool animate = true)
+    public void HideView<T>(string assetName = null, bool animate = true) where T : IUIView
     {
         if (string.IsNullOrEmpty(assetName))
         {
             assetName = typeof(T).Name;
         }
 
-        IUIView uiView = GetCachedView(assetName);
+        IUIView uiView = GetCachedView<T>(assetName);
 
         if (uiView != null)
         {
@@ -84,12 +84,17 @@ public class BasicDialogController
         }
     }
 
-    public async Task<T> GetOrInstantiateView<T>(string assetName) where T : IUIView
+    public async Task<T> GetOrInstantiateView<T>(string assetName = null) where T : IUIView
     {
+        if (string.IsNullOrEmpty(assetName))
+        {
+            assetName = typeof(T).Name;
+        }
+
         IUIView view;
         if (_viewCache.ContainsKey(assetName))
         {
-            view = GetCachedView(assetName);
+            view = GetCachedView<T>(assetName);
         }
         else
         {
@@ -99,14 +104,19 @@ public class BasicDialogController
         return (T)view;
     }
 
-    public IUIView GetCachedView(string assetName)
+    public T GetCachedView<T>(string assetName = null) where T : IUIView
     {
-        if (_viewCache.ContainsKey(assetName))
+        if (string.IsNullOrEmpty(assetName))
         {
-            return _viewCache[assetName];
+            assetName = typeof(T).Name;
         }
 
-        return null;
+        if (_viewCache.ContainsKey(assetName))
+        {
+            return (T)_viewCache[assetName];
+        }
+
+        return default;
     }
 
     private bool _disposed = false;
