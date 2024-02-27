@@ -65,7 +65,6 @@ public class UICreator
     public BasicListView showBasicListView(string title, List<DialogButtonData> buttons = null, string prefabResourceKey = LIST_VIEW_PATH)
     {
         BasicListView view = Object.Instantiate(Resources.Load<BasicListView>(prefabResourceKey));
-        view.Init();
         view.Set(title, buttons);
 
         return view;

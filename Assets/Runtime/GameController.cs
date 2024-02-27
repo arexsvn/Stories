@@ -137,15 +137,43 @@ public class GameController : ITickable, ILateTickable, IFixedTickable, IInitial
 
     private async void handleNewGame()
     {
-        await _basicDialogController.ShowInputDialog("Test Dialog", "This is a test? Are you really sure we are only testing here?", "Enter some text here!", new List<DialogButtonData> 
+
+        await _basicDialogController.ShowDialog("Test Dialog", "This is a test? Are you really sure we are only testing here?", new List<DialogButtonData> 
         {
-            new DialogButtonData(async ()=>
+            new (async ()=>
             {
                 GetUserResponse res = await _userApi.GetUser();
             }, "Get User"),
-            new DialogButtonData(null, "Cancel")
+            new (async ()=>
+            {
+                await _basicDialogController.ShowList("A Cool List", new List<DialogButtonData>
+                {
+                    new (async ()=>
+                    {
+                        await _basicDialogController.ShowInputDialog("Test Input", "Try out some input!", "Test Input", new List<DialogButtonData>
+                        {
+                            new (async ()=>
+                            {
+                                BasicInputDialogView dialog = _basicDialogController.GetCachedView<BasicInputDialogView>();
+                                await _basicDialogController.ShowDialog("Sending Input", $"Input {dialog.GetInput()} Sent!", new List<DialogButtonData> { new(null, "OK") }, null, false);
+                            }, "Send Input"),
+                        });
+                    }, "Show Input!"),
+                    new (null, "1"),
+                    new (null, "2"),
+                    new (null, "3"),
+                    new (null, "4"),
+                    new (null, "5"),
+                    new (null, "6"),
+                    new (null, "A rather large label"),
+                    new (null, "8"),
+                    new (null, "9"),
+                    new (null, "10"),
+                    new (null, "11")
+                });
+            }, "Show A List!"),
+            new (null, "Cancel")
         });
-        //GetUserResponse res = await _userApi.GetUser();
 
         return;
 
