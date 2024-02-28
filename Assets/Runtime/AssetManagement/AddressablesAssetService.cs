@@ -25,14 +25,14 @@ public class AddressablesAssetService : IAssetService, IDisposable
     /// <typeparam name="T"></typeparam>
     /// <returns></returns>
     /// </summary>
-    public async Task<T> InstantiateAsset<T>(Transform container = null, string assetName = null, CancellationToken cancellationToken = default)
+    public async Task<T> Instantiate<T>(Transform container = null, string assetName = null, CancellationToken cancellationToken = default)
     {
         if (assetName == null)
         {
             assetName = typeof(T).Name;
         }
 
-        GameObject viewGameObject = await InstantiateAsset(assetName, container, cancellationToken);
+        GameObject viewGameObject = await Instantiate(assetName, container, cancellationToken);
 
         if (viewGameObject == null)
         {
@@ -49,7 +49,7 @@ public class AddressablesAssetService : IAssetService, IDisposable
     /// <param name="container">(optional) Transform we should load into. If left 'null' will NOT be added to any transform.</param>
     /// <param name="cancellationToken">(optional) Token to cancel the load.</param>
     /// </summary>
-    public async Task<GameObject> InstantiateAsset(string assetName, Transform container = null, CancellationToken cancellationToken = default)
+    public async Task<GameObject> Instantiate(string assetName, Transform container = null, CancellationToken cancellationToken = default)
     {
         if (string.IsNullOrEmpty(assetName))
         {

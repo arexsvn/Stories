@@ -20,14 +20,13 @@ public class TextOverlayView : MonoBehaviour
     {
         _showing = show;
 
-        if (canvasGroup != null)
+        float alpha = 1f;
+        if (!show)
         {
-            UITransitions.fade(gameObject, canvasGroup, !show, false, fadeTime);
+            alpha = 0f;
         }
-        else 
-        {
-            UITransitions.fade(gameObject, textField, !show, false, fadeTime);
-        }
+
+        UITransitions.fade(canvasGroup, alpha, fadeTime, gameObject, null, !show);
     }
 
     public void restoreDefaultTextColor()

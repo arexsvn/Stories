@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
@@ -11,6 +9,13 @@ public class MainMenuView : MonoBehaviour
 
     public void show(bool show = true, float fadeTime = -1)
     {
-        UITransitions.fade(gameObject, canvasGroup, !show, false, fadeTime);
+        float alpha = 1f;
+        
+        if (!show)
+        {
+            alpha = 0f;
+        }
+        
+        UITransitions.fade(canvasGroup, alpha, fadeTime, gameObject, null, !show);
     }
 }

@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 
 public class DialogView : MonoBehaviour 
@@ -12,19 +11,25 @@ public class DialogView : MonoBehaviour
 
 	public void fadeIn()
 	{
-		UITransitions.fade(gameObject, canvasGroup, false);
+		UITransitions.fadeIn(canvasGroup, gameObject);
 	}
 
 	public void fadeOut(float fadeTime = -1f, bool destroyOnComplete = true)
 	{
-		UITransitions.fade(gameObject, canvasGroup, true, destroyOnComplete, fadeTime);
+		UITransitions.fade(canvasGroup, 0f, fadeTime, gameObject, gameObject =>
+		{
+			if (destroyOnComplete)
+			{
+                Destroy(gameObject);
+            }
+		});
 	}
 
     public void clearButtons()
     {
         foreach (Transform child in buttonContainer.transform)
         {
-            Object.Destroy(child.gameObject);
+            Destroy(child.gameObject);
         }
     }
 }

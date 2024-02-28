@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine.UI;
 using signals;
 
@@ -14,8 +13,8 @@ public class DialogueView : MonoBehaviour
     public GameObject choiceContainer;
     public CanvasGroup canvasGroup;
     public CanvasGroup choiceCanvasGroup;
-    public Button backgroundButton;
     public CanvasGroup backgroundCanvasGroup;
+    public Button backgroundButton;
     public bool _showingBackground = true;
     private List<TextOverlayView> _textOverlays;
     private Vector3 playerTextPositionStandard;
@@ -36,9 +35,12 @@ public class DialogueView : MonoBehaviour
         portrait.imageContainer.show(false, 0);
         showNpcText(false, 0);
         showDescriptiveText(false, 0);
-        showChoices(false, 0);
-        showBackground(false, 0);
-        show(false, 0);
+
+        choiceCanvasGroup.alpha = 0f;
+        choiceContainer.SetActive(false);
+
+        canvasGroup.alpha = 0f;
+        gameObject.SetActive(false);
     }
 
     public void OnDestroy()
@@ -51,7 +53,7 @@ public class DialogueView : MonoBehaviour
     {
         foreach (Transform child in choiceContainer.transform)
         {
-            Object.Destroy(child.gameObject);
+            Destroy(child.gameObject);
         }
     }
 
@@ -124,24 +126,47 @@ public class DialogueView : MonoBehaviour
         }
     }
 
-    public void showChoices(bool show = true, float fadeTime = -1)
+    public void showChoices(bool show = true)
     {
-        UITransitions.fade(choiceContainer, choiceCanvasGroup, !show, false, fadeTime);
+        if (show)
+        {
+            UITransitions.fadeIn(choiceCanvasGroup, choiceContainer);
+        }
+        else
+        {
+            UITransitions.fadeOut(choiceCanvasGroup, choiceContainer, null, true);
+        }
     }
 
-    public void show(bool show = true, float fadeTime = -1)
+    public void show(bool show = true)
     {
-        UITransitions.fade(gameObject, canvasGroup, !show, false, fadeTime);
+        if (show)
+        {
+            UITransitions.fadeIn(canvasGroup, gameObject);
+        }
+        else
+        {
+            UITransitions.fadeOut(canvasGroup, gameObject, null, true);
+        }
     }
 
-    public void showBackground(bool show = true, float fadeTime = -1)
+    public void showBackground(bool show = true)
     {
         if (_showingBackground == show)
         {
             return;
         }
+
         _showingBackground = show;
-        UITransitions.fade(gameObject, backgroundCanvasGroup, !show, false, fadeTime, false);
+
+        if (show)
+        {
+            UITransitions.fadeIn(backgroundCanvasGroup);
+        }
+        else
+        {
+            UITransitions.fadeOut(backgroundCanvasGroup, backgroundCanvasGroup.gameObject, null, false);
+        }
     }
 
     private void OnBackgroundClick()

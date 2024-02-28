@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine.UI;
 
@@ -14,16 +13,28 @@ public class InboxView : MonoBehaviour
     public Button closeButton;
     public CanvasGroup canvasGroup;
 
-    public void show(bool show = true, float fadeTime = -1)
+    private void Awake()
     {
-        UITransitions.fade(gameObject, canvasGroup, !show, false, fadeTime);
+        canvasGroup.alpha = 0f;
+    }
+
+    public void show(bool show = true)
+    {
+        if (show)
+        {
+            UITransitions.fadeIn(canvasGroup, gameObject);
+        }
+        else
+        {
+            UITransitions.fadeOut(canvasGroup, gameObject);
+        }
     }
 
     public void removeInboxItems()
     {
         foreach (Transform child in inboxItemContainer.transform)
         {
-            Object.Destroy(child.gameObject);
+            Destroy(child.gameObject);
         }
     }
 
@@ -31,7 +42,7 @@ public class InboxView : MonoBehaviour
     {
         foreach (Transform child in inboxListItemContainer.transform)
         {
-            Object.Destroy(child.gameObject);
+            Destroy(child.gameObject);
         }
     }
 }

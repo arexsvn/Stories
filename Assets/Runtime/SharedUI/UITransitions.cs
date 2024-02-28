@@ -8,67 +8,83 @@ public class UITransitions
 {
 	public const float FADE_TIME = 0.2f;
 
-	public static void fade(GameObject target, CanvasGroup canvasGroup, bool fadeOut = true, bool destroyOnComplete = false, float fadeTime = -1f, bool deactivateOnComplete = true, Action<GameObject> complete = null)
+    public static void fadeIn(CanvasGroup canvasGroup, GameObject target = null, Action<GameObject> complete = null)
+    {
+        if (target == null)
+        {
+            target = canvasGroup.gameObject;
+        }
+        
+        applyFade(canvasGroup.DOFade, canvasGroup.DOComplete, target, 1f, -1, complete);
+    }
+
+    public static void fadeOut(CanvasGroup canvasGroup, GameObject target = null, Action <GameObject> complete = null, bool deactivateOnComplete = true)
+    {
+        if (target == null)
+        {
+            target = canvasGroup.gameObject;
+        }
+
+        applyFade(canvasGroup.DOFade, canvasGroup.DOComplete, target, 0f, -1, complete, deactivateOnComplete);
+    }
+
+    public static void fade(CanvasGroup canvasGroup, float alpha, float fadeTime = -1f, GameObject target = null, Action < GameObject> complete = null, bool deactivateOnComplete = false)
 	{
-        applyFade(canvasGroup.DOFade, canvasGroup.DOComplete, target, fadeOut, destroyOnComplete, fadeTime, deactivateOnComplete, complete);
+        if (target == null)
+        {
+            target = canvasGroup.gameObject;
+        }
+
+        applyFade(canvasGroup.DOFade, canvasGroup.DOComplete, target, alpha, fadeTime, complete, deactivateOnComplete);
     }
 
-    public static void fade(GameObject target, Image image, bool fadeOut = true, bool destroyOnComplete = false, float fadeTime = -1f, bool deactivateOnComplete = true, Action<GameObject> complete = null)
+    public static void fade(Image image, float alpha, float fadeTime = -1f, GameObject target = null, Action < GameObject> complete = null, bool deactivateOnComplete = false)
     {
-        applyFade(image.DOFade, image.DOComplete, target, fadeOut, destroyOnComplete, fadeTime, deactivateOnComplete, complete);
+        if (target == null)
+        {
+            target = image.gameObject;
+        }
+
+        applyFade(image.DOFade, image.DOComplete, target, alpha, fadeTime, complete, deactivateOnComplete);
     }
 
-    public static void fade(GameObject target, TextMeshProUGUI text, bool fadeOut = true, bool destroyOnComplete = false, float fadeTime = -1f, bool deactivateOnComplete = true, Action<GameObject> complete = null)
+    public static void fade(TextMeshProUGUI text, float alpha, float fadeTime = -1f, GameObject target = null, Action < GameObject> complete = null, bool deactivateOnComplete = false)
     {
-        applyFade(text.DOFade, text.DOComplete, target, fadeOut, destroyOnComplete, fadeTime, deactivateOnComplete, complete);
+        if (target == null)
+        {
+            target = text.gameObject;
+        }
+
+        applyFade(text.DOFade, text.DOComplete, target, alpha, fadeTime, complete, deactivateOnComplete);
     }
 
     private static void applyFade(Func<float, float, Tween> fadeAction, 
                                   Func<bool, int> completeAction, 
-                                  GameObject target, 
-                                  bool fadeOut = true, 
-                                  bool destroyOnComplete = false, 
+                                  GameObject target,
+                                  float alpha, 
                                   float time = -1f, 
-                                  bool deactivateOnComplete = true,
-                                  Action<GameObject> complete = null)
+                                  Action<GameObject> complete = null,
+                                  bool deactivateOnComplete = false)
     {
         if (time == -1f)
         {
             time = FADE_TIME;
         }
 
-        if (fadeOut)
+        completeAction(false);
+
+        target.SetActive(true);
+
+        TweenCallback fadeComplete = delegate
         {
-            TweenCallback fadeComplete = delegate
+            if (alpha == 0f && deactivateOnComplete)
             {
-                if (destroyOnComplete)
-                {
-                    UnityEngine.Object.Destroy(target);
-                }
-                else if(deactivateOnComplete)
-                {
-                    target.SetActive(false);
-                }
-
-                complete?.Invoke(target);
-            };
-
-            completeAction(false);
-            fadeAction(0, time).OnComplete(fadeComplete);
-        }
-        else
-        {
-            completeAction(false);
-            target.SetActive(true);
-
-            if (complete != null)
-            {
-                fadeAction(1, time).OnComplete(() => complete(target));
+                target.SetActive(false);
             }
-            else
-            {
-                fadeAction(1, time);
-            }
-        }
+
+            complete?.Invoke(target);
+        };
+
+        fadeAction(alpha, time).OnComplete(fadeComplete);
     }
 }

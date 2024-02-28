@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
-using System.Collections;
 using signals;
 using TMPro;
 using System;
@@ -12,6 +11,11 @@ public class ClockView : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     public CanvasGroup canvasGroup;
     public Signal over = new Signal();
     public Signal off = new Signal();
+
+    private void Awake()
+    {
+        canvasGroup.alpha = 0f;
+    }
 
     public void OnPointerEnter(PointerEventData eventData)
     {

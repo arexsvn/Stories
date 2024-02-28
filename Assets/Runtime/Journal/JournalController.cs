@@ -29,7 +29,7 @@ public class JournalController
 
         if (_view == null)
         {
-            _view = await _addressablesAssetService.InstantiateAsset<JournalView>();
+            _view = await _addressablesAssetService.Instantiate<JournalView>();
             _view.closeButton.onClick.AddListener(closeButtonClicked.Dispatch);
             _view.noEntriesOverlay.gameObject.SetActive(true);
         }

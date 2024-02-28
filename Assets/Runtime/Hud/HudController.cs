@@ -1,32 +1,31 @@
 using UnityEngine;
-using System.Collections;
 using signals;
 
 public class HudController
 {
     public Signal<Screens.Name> showScreen;
     private HudView _view;
-    private static string PREFAB = "UI/Hud";
-    private bool _showing = false;
     private readonly ClockController _clockController;
+    private readonly AddressablesAssetService _assetService;
 
-    public HudController(ClockController clockController)
+    public HudController(ClockController clockController, AddressablesAssetService assetService)
     {
         _clockController = clockController;
-        _clockController.init();
+        _assetService = assetService;
         init();
     }
 
-    private void init()
+    private async void init()
     {
+        _clockController.init();
+
         showScreen = new Signal<Screens.Name>();
 
-        GameObject prefab = (GameObject)Object.Instantiate(Resources.Load(PREFAB));
-        _view = prefab.GetComponent<HudView>();
+        _view = await _assetService.Instantiate<HudView>();
         _view.over.Add(() => show(true));
         _view.off.Add(() => show(false));
 
-        show(false, 0);
+        _view.canvasGroup.alpha = 0f;
 
         addElement("Journal", Screens.Name.Journal);
         addElement("Main Menu", Screens.Name.MainMenu);
@@ -39,23 +38,14 @@ public class HudController
         hudElement.button.onClick.AddListener(()=>hudElementClicked(screenName));
     }
 
-    public void show(bool show = true, float fadeTime = -1)
+    public void show(bool show = true)
     {
-        _showing = show;
-        UITransitions.fade(_view.gameObject, _view.canvasGroup, !show, false, fadeTime, false);
+        _view.show(show);
     }
 
     public void showClock(bool show, double costInMinutes)
     {
         _clockController.showTimeCost(show, costInMinutes);
-    }
-
-    public bool showing
-    {
-        get
-        {
-            return _showing;
-        }
     }
 
     private void hudElementClicked(Screens.Name screenName)

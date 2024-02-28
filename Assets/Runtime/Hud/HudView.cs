@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using signals;
@@ -11,6 +9,7 @@ public class HudView : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public Signal over = new Signal();
     public Signal off = new Signal();
     public ButtonView hudElement;
+    private bool _showing = false;
 
     public void OnPointerEnter(PointerEventData eventData)
     {
@@ -20,5 +19,26 @@ public class HudView : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public void OnPointerExit(PointerEventData eventData)
     {
         off.Dispatch();
+    }
+
+    public void show(bool show = true)
+    {
+        _showing = show;
+        if (show)
+        {
+            UITransitions.fadeIn(canvasGroup, gameObject);
+        }
+        else
+        {
+            UITransitions.fadeOut(canvasGroup, gameObject, null, false);
+        }
+    }
+
+    public bool showing
+    {
+        get
+        {
+            return _showing;
+        }
     }
 }

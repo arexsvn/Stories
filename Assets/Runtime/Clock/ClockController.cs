@@ -1,34 +1,30 @@
-﻿using UnityEngine;
-using System.Collections;
-using System;
-using System.Globalization;
+﻿using System;
 
 public class ClockController
 {
     private ClockView _view;
-    private static string PREFAB = "UI/Clock";
     private DateTime _gameTime;
     private int _currentDay;
     private bool _endOfDay;
+    private readonly AddressablesAssetService _assetService;
 
-    public ClockController()
+    public ClockController(AddressablesAssetService assetService)
     {
-        
+        _assetService = assetService;
     }
 
-    public void init()
+    public async void init()
     {
         _gameTime = new DateTime();
         _currentDay = _gameTime.Day;
 
-        GameObject prefab = (GameObject)UnityEngine.Object.Instantiate(Resources.Load(PREFAB));
-        _view = prefab.GetComponent<ClockView>();
+        _view = await _assetService.Instantiate<ClockView>();
         _view.over.Add(handleOver);
         _view.off.Add(() => show(false));
 
         _view.SetTime(_gameTime);
 
-        show(false, 0);
+        _view.canvasGroup.alpha = 0f;
     }
 
     public void advanceTime(double minutes)
@@ -47,28 +43,22 @@ public class ClockController
         _currentDay = _gameTime.Day;
     }
 
-    /*
-    public void add(GameObject parent)
-    {
-        GameObject prefab = (GameObject)UnityEngine.Object.Instantiate(Resources.Load(PREFAB));
-        _view = prefab.GetComponent<ClockView>();
-        _view.over.Add(() => show(true));
-        _view.off.Add(() => show(false));
-
-        show(false, 0);
-    }
-    */
-
     public void handleOver()
     {
-        return;
         _view.SetTime(_gameTime);
         show(true);
     }
 
-    public void show(bool show = true, float fadeTime = -1)
+    public void show(bool show = true)
     {
-        UITransitions.fade(_view.gameObject, _view.canvasGroup, !show, false, fadeTime, false);
+        if (show)
+        {
+            UITransitions.fadeIn(_view.canvasGroup, _view.gameObject);
+        }
+        else
+        {
+            UITransitions.fadeOut(_view.canvasGroup, _view.gameObject, null, false);
+        }
     }
 
     public void showTimeCost(bool show, double costInMinutes = 0)

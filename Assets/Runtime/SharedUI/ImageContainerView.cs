@@ -33,13 +33,21 @@ public class ImageContainerView : MonoBehaviour
     public void show(bool show = true, float fadeTime = -1)
     {
         _showing = show;
+
+        float alpha = 1f;
+
+        if (!show)
+        {
+            alpha = 0f;
+        }
+
         if (canvasGroup != null)
         {
-            UITransitions.fade(gameObject, canvasGroup, !show, false, fadeTime, false);
+            UITransitions.fade(canvasGroup, alpha, fadeTime, gameObject, null, !show);
         }
         else
         {
-            UITransitions.fade(gameObject, image, !show, false, fadeTime, false);
+            UITransitions.fade(image, alpha, fadeTime, gameObject, null, !show);
         }
     }
 

@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 3983617090161848690}
   - component: {fileID: 2325829840165204100}
   m_Layer: 5
-  m_Name: ChoiceEntry
+  m_Name: ChoiceView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

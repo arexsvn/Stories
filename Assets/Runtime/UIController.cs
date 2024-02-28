@@ -6,7 +6,6 @@ using DG.Tweening;
 public class UIController
 {
     public Signal fadeComplete;
-    private TextOverlayView _textOverlay;
     private GameObject _fadeScreen;
     private const float FADE_TIME = 0.5f;
     readonly UICreator _uiCreator;

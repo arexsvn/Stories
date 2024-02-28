@@ -1,8 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
-using TMPro;
-using UnityEngine.UI;
 using signals;
 
 public class InboxController
@@ -21,10 +19,10 @@ public class InboxController
         init();
     }
 
-    public void show(bool show = true, float fadeTime = -1)
+    public void show(bool show = true)
     {
         _showing = show;
-        _view.show(show, fadeTime);
+        _view.show(show);
     }
 
     private void init()
@@ -74,8 +72,6 @@ public class InboxController
         inboxMessages.Add(message);
                 
         updateMessages(inboxMessages);
-
-        show(false, 0);
     }
 
     private void updateMessages(List<InboxMessage> messages, bool autoSelectFirstMessge = true)

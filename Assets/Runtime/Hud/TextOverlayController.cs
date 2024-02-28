@@ -1,22 +1,20 @@
-using UnityEngine;
-
 public class TextOverlayController
 {
     private TextOverlayView _view;
-    private static string PREFAB = "UI/TextOverlay";
     private bool _showing = false;
+    private readonly AddressablesAssetService _assetService;
 
-    public TextOverlayController()
+    public TextOverlayController(AddressablesAssetService assetService)
     {
+        _assetService = assetService;
         init();
     }
 
-    public void init()
+    public async void init()
     {
-        GameObject prefab = (GameObject)Object.Instantiate(Resources.Load(PREFAB));
-        _view = prefab.GetComponent<TextOverlayView>();
-        _view.gameObject.SetActive(false);
-        clearText();
+        _view = await _assetService.Instantiate<TextOverlayView>();
+        _view.canvasGroup.alpha = 0f;
+        setText("");
     }
 
     public void setText(string text)

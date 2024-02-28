@@ -24,29 +24,31 @@ public class DialogueController
     readonly CharacterManager _characterManager;
     readonly MemoryController _memoryManager;
     readonly SaveStateController _saveGameController;
+    readonly AddressablesAssetService _assetService;
 
     public DialogueController(CoroutineRunner coroutineRunner, 
                               DialogueParser dialogueParser, 
                               CharacterManager characterManager, 
                               MemoryController memoryManager, 
-                              SaveStateController saveGameController)
+                              SaveStateController saveGameController,
+                              AddressablesAssetService assetService)
     {
         _coroutineRunner = coroutineRunner;
         _dialogueParser = dialogueParser;
         _characterManager = characterManager;
         _memoryManager = memoryManager;
         _saveGameController = saveGameController;
+        _assetService = assetService;
 
         init();
     }
 
-    private void init()
+    private async void init()
     {
         dialogueComplete = new Signal<Dialogue>();
         _dialoguesToSave = new List<DialogueNode>();
 
-        GameObject prefab = (GameObject)Object.Instantiate(Resources.Load(DIALOGUE_PREFAB));
-        _dialogueView = prefab.GetComponent<DialogueView>();
+        _dialogueView = await _assetService.Instantiate<DialogueView>();
         _dialogueView.gameObject.SetActive(false);
         _dialogueView.backgroundClick.Add(handleBackgroundClicked);
 
@@ -263,10 +265,9 @@ public class DialogueController
         _dialogueView.showChoices();
     }
 
-    private void displayChoice(LeafNode node)
+    private async void displayChoice(LeafNode node)
     {
-        GameObject prefab = (GameObject)Object.Instantiate(Resources.Load(CHOICE_PREFAB), _dialogueView.choiceContainer.transform);
-        ChoiceView choiceView = prefab.GetComponent<ChoiceView>();
+        ChoiceView choiceView = await _assetService.Instantiate<ChoiceView>(_dialogueView.choiceContainer.transform);
         DialogueNode dialogueNode = node.nodeData as DialogueNode;
 
         // Use the full text of the choice if a label isn't specified.

@@ -52,7 +52,7 @@ public class BasicDialogView : MonoBehaviour, IUIView
         gameObject.SetActive(true);
         if (animate)
         {
-            UITransitions.fade(gameObject, canvasGroup, false, false, UITransitions.FADE_TIME, false, go => { OnShown?.Invoke(this); });
+            UITransitions.fadeIn(canvasGroup, gameObject, go => { OnShown?.Invoke(this); });
         }
         else
         {
@@ -65,7 +65,7 @@ public class BasicDialogView : MonoBehaviour, IUIView
     {
         if (animate)
         {
-            UITransitions.fade(gameObject, canvasGroup, true, false, UITransitions.FADE_TIME, true, go => { OnHidden?.Invoke(this); });
+            UITransitions.fadeOut(canvasGroup, gameObject, go => { OnHidden?.Invoke(this); });
         }
         else
         {

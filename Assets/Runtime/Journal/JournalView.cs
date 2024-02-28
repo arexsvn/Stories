@@ -62,21 +62,25 @@ public class JournalView : MonoBehaviour
 
     public void Show(bool animate = true)
     {
-        float fadeTime = -1;
         if (!animate)
         {
-            fadeTime = 0;
+            canvasGroup.alpha = 1f;
         }
-        UITransitions.fade(gameObject, canvasGroup, false, false, fadeTime);
+        else
+        {
+            UITransitions.fadeIn(canvasGroup, gameObject);
+        }
     }
 
     public void Hide(bool animate = true)
     {
-        float fadeTime = -1;
         if (!animate)
         {
-            fadeTime = 0;
+            canvasGroup.alpha = 0f;
         }
-        UITransitions.fade(gameObject, canvasGroup, true, false, fadeTime);
+        else
+        {
+            UITransitions.fadeOut(canvasGroup, gameObject);
+        }
     }
 }
