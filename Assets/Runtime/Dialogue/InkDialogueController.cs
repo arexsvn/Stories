@@ -1,8 +1,10 @@
 using UnityEngine;
 using System.Collections.Generic;
 using signals;
+using Ink.Runtime;
+using System;
 
-public class DialogueController
+public class InkDialogueController
 {
     public Signal<Dialogue> dialogueComplete;
     private Dictionary<string, Dialogues> _dialogues;
@@ -11,12 +13,14 @@ public class DialogueController
     private Dialogue _currentDialogue;
     private CharacterBio _currentCharacter;
     private string _currentEmotion;
-    private string _currentMemoryId;
+    private string _currentStoryId;
     private List<DialogueNode> _dialoguesToSave;
     public static string DIALOGUE_PATH = "data/dialogues/";
     private static float TEXT_TIME_MULTIPLIER = 0.065f;
     private static float MIN_TEXT_SECONDS = 2f;
     private bool _autoAdvanceDialogue = false;
+    private Story _currentStory;
+    private bool _storyFinished = false;
     readonly CoroutineRunner _coroutineRunner;
     readonly DialogueParser _dialogueParser;
     readonly CharacterManager _characterManager;
@@ -24,7 +28,7 @@ public class DialogueController
     readonly SaveStateController _saveGameController;
     readonly AddressablesAssetService _assetService;
 
-    public DialogueController(CoroutineRunner coroutineRunner, 
+    public InkDialogueController(CoroutineRunner coroutineRunner, 
                               DialogueParser dialogueParser, 
                               CharacterManager characterManager, 
                               MemoryController memoryManager, 
@@ -69,7 +73,7 @@ public class DialogueController
         }
     }
 
-    public void reset()
+    public void Reset()
     {
         _characterManager.clearStatus();
         _memoryManager.clearMemories();
@@ -83,8 +87,9 @@ public class DialogueController
         }
     }
 
-    public void start(string dialoguesId, string memoryId = null)
+    public async void Start(string storyId)
     {
+        /*
         if (!_dialogues.ContainsKey(dialoguesId))
         {
             loadDialogues(dialoguesId);
@@ -95,6 +100,60 @@ public class DialogueController
         _dialogueView.clearChoices();
         displayNode(_currentDialogue.tree.root);
         _dialogueView.show();
+        */
+        TextAsset storyText = await _assetService.LoadAsync<TextAsset>(storyId);
+        if (storyText == null)
+        {
+            Debug.LogError($"InkDialogController :: start : storyId '{storyId}' TextAsset is null!");
+            return;
+        }
+
+        _storyFinished = false;
+        _currentStoryId = storyId;
+        _currentStory = new Story(storyText.text);
+
+        //_currentDialogue = _dialogues[dialoguesId].start;
+        _dialogueView.hideAll();
+        _dialogueView.clearChoices();
+        //displayNode(_currentDialogue.tree.root);
+        continueStory();
+        _dialogueView.show();
+    }
+
+    private void continueStory()
+    {
+        string descriptiveText = "";
+        while (_currentStory.canContinue)
+        {
+            // Continue gets the next line of the story
+            string text = _currentStory.Continue();
+            // This removes any white space from the text.
+            descriptiveText += text.Trim() + "\n";
+        }
+
+        // Display the text on screen!
+        _dialogueView.displayDescriptiveText(descriptiveText);
+
+        // Display all the choices, if there are any!
+        if (_currentStory.currentChoices.Count > 0)
+        {
+            for (int i = 0; i < _currentStory.currentChoices.Count; i++)
+            {
+                Choice choice = _currentStory.currentChoices[i];
+                displayChoice(choice);
+            }
+        }
+        // If we've read all the content and there's no choices, the story is finished!
+        else
+        {
+            _storyFinished = true;
+            /*
+            Button choice = CreateChoiceView("End of story.\nRestart?");
+            choice.onClick.AddListener(delegate {
+                StartStory();
+            });
+            */
+        }
     }
 
     public void stop()
@@ -180,8 +239,8 @@ public class DialogueController
         {
             if (_currentCharacter != null)
             {
-                dialogueNode.memoryId = _currentMemoryId;
-                _memoryManager.addOutcome(new MemoryOutcome(_currentCharacter.characterId, dialogueNode.outcome, _currentMemoryId));
+                dialogueNode.memoryId = _currentStoryId;
+                _memoryManager.addOutcome(new MemoryOutcome(_currentCharacter.characterId, dialogueNode.outcome, _currentStoryId));
                 saveDialogueNode = true;
             }
             else
@@ -217,7 +276,7 @@ public class DialogueController
         }
     }
 
-    private void displayText(DialogueNode dialogueNode, System.Action advanceDialogue)
+    private void displayText(DialogueNode dialogueNode, Action advanceDialogue)
     {
         if (dialogueNode.type == DialogueNode.Type.Description)
         {
@@ -288,6 +347,25 @@ public class DialogueController
         displayNode(node);
     }
 
+    private async void displayChoice(Choice choice)
+    {
+        ChoiceView choiceView = await _assetService.InstantiateAsync<ChoiceView>(_dialogueView.choiceContainer.transform);
+        choiceView.textArea.text = choice.text.Trim();
+
+        choiceView.click.AddOnce(() => handleMakeChoice(choice));
+
+        _dialogueView.showChoices();
+    }
+
+    private void handleMakeChoice(Choice choice)
+    {
+        _dialogueView.showChoices(false);
+        _dialogueView.clearChoices();
+        _currentStory.ChooseChoiceIndex(choice.index);
+        continueStory();
+        //displayNode(node);
+    }
+
     private void nextNode()
     {
         DialogueNode dialogueNode = _currentNode.nodeData as DialogueNode;
@@ -312,10 +390,10 @@ public class DialogueController
             _dialoguesToSave.Clear();
         }
 
-        if (_currentMemoryId != null)
+        if (_currentStoryId != null)
         {
-            _saveGameController.saveMemoryId(_currentMemoryId);
-            _currentMemoryId = null;
+            _saveGameController.saveMemoryId(_currentStoryId);
+            _currentStoryId = null;
         }
     }
 
@@ -325,26 +403,10 @@ public class DialogueController
         {
             _coroutineRunner.RunDelayedUpdateActionNow();
         }
-    }
-}
 
-public class Dialogues
-{
-    public string id;
-    public string startDialogueId;
-    public Dictionary<string, Dialogue> dialogues;
-
-    public Dialogues(string id, string startDialogueId)
-    {
-        this.id = id;
-        this.startDialogueId = startDialogueId;
-    }
-
-    public Dialogue start
-    {
-        get
+        if (_storyFinished)
         {
-            return dialogues[startDialogueId];
+            _dialogueView.hideAll();
         }
     }
 }

@@ -20,7 +20,7 @@ public class BasicDialogController
     {
         if (uiCanvas == null)
         {
-            _uiCanvas = await _assetService.Instantiate<IUICanvas>(null, UI_CANVAS_KEY);
+            _uiCanvas = await _assetService.InstantiateAsync<IUICanvas>(null, UI_CANVAS_KEY);
         }
         else
         {
@@ -98,7 +98,7 @@ public class BasicDialogController
         }
         else
         {
-            view = await _assetService.Instantiate<T>(_uiCanvas.DialogLayer, assetName);
+            view = await _assetService.InstantiateAsync<T>(_uiCanvas.DialogLayer, assetName);
             _viewCache[assetName] = view;
         }
         return (T)view;

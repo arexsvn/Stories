@@ -16,6 +16,39 @@ public class AddressablesAssetService : IAssetService, IDisposable
         _dependencyInjectionContainer = container;
     }
 
+    public async Task<T> LoadAsync<T>(string assetName, CancellationToken cancellationToken = default)
+    {
+        AsyncOperationHandle<T> handle = UnityEngine.AddressableAssets.Addressables.LoadAssetAsync<T>(assetName);
+        try
+        {
+            while (!cancellationToken.IsCancellationRequested && handle.Task.Status != TaskStatus.RanToCompletion && !handle.IsDone)
+            {
+                await handle.Task;
+            }
+        }
+        catch (Exception e)
+        {
+            LoadError?.Invoke($"[AssetService] Load : Exception while loading asset '{e.Message}'");
+            return default;
+        }
+
+        if (handle.Status == AsyncOperationStatus.Failed || handle.Result == null)
+        {
+            LoadError?.Invoke($"[AssetService] Failed to load asset {handle.DebugName}.");
+            return default;
+        }
+
+        if (cancellationToken.IsCancellationRequested)
+        {
+            UnityEngine.AddressableAssets.Addressables.ReleaseInstance(handle);
+            return default;
+        }
+
+        T result = handle.Result;
+
+        return result;
+    }
+
     /// <summary>
     /// Instantiate an asset that needs dependency injection.
     /// <param name="container"></param>
@@ -25,14 +58,14 @@ public class AddressablesAssetService : IAssetService, IDisposable
     /// <typeparam name="T"></typeparam>
     /// <returns></returns>
     /// </summary>
-    public async Task<T> Instantiate<T>(Transform container = null, string assetName = null, CancellationToken cancellationToken = default)
+    public async Task<T> InstantiateAsync<T>(Transform container = null, string assetName = null, CancellationToken cancellationToken = default)
     {
         if (assetName == null)
         {
             assetName = typeof(T).Name;
         }
 
-        GameObject viewGameObject = await Instantiate(assetName, container, cancellationToken);
+        GameObject viewGameObject = await InstantiateAsync(assetName, container, cancellationToken);
 
         if (viewGameObject == null)
         {
@@ -49,7 +82,7 @@ public class AddressablesAssetService : IAssetService, IDisposable
     /// <param name="container">(optional) Transform we should load into. If left 'null' will NOT be added to any transform.</param>
     /// <param name="cancellationToken">(optional) Token to cancel the load.</param>
     /// </summary>
-    public async Task<GameObject> Instantiate(string assetName, Transform container = null, CancellationToken cancellationToken = default)
+    public async Task<GameObject> InstantiateAsync(string assetName, Transform container = null, CancellationToken cancellationToken = default)
     {
         if (string.IsNullOrEmpty(assetName))
         {

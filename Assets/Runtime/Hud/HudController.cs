@@ -21,7 +21,7 @@ public class HudController
 
         showScreen = new Signal<Screens.Name>();
 
-        _view = await _assetService.Instantiate<HudView>();
+        _view = await _assetService.InstantiateAsync<HudView>();
         _view.over.Add(() => show(true));
         _view.off.Add(() => show(false));
 

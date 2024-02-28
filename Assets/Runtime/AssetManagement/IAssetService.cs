@@ -5,8 +5,8 @@ using System;
 
 public interface IAssetService
 {
-    Task<T> Instantiate<T>(Transform container = null, string assetName = null, CancellationToken cancellationToken = default);
-    Task<GameObject> Instantiate(string assetName, Transform container = null, CancellationToken cancellationToken = default);
+    Task<T> InstantiateAsync<T>(Transform container = null, string assetName = null, CancellationToken cancellationToken = default);
+    Task<GameObject> InstantiateAsync(string assetName, Transform container = null, CancellationToken cancellationToken = default);
     void DisposeAsset(GameObject gameObject);
     event Action<string> LoadError;
 }

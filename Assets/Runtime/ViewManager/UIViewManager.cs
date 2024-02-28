@@ -36,7 +36,7 @@ public class UIViewManager : IDisposable
     {
 	    if (uiCanvas == null)
 	    {
-			_uiCanvas = await _assetService.Instantiate<IUICanvas>(null, UI_CANVAS_KEY);
+			_uiCanvas = await _assetService.InstantiateAsync<IUICanvas>(null, UI_CANVAS_KEY);
 	    }
 	    else
 	    {
@@ -105,7 +105,7 @@ public class UIViewManager : IDisposable
 
 		if (newView == null)
 		{
-			GameObject viewGameObject = await _assetService.Instantiate(assetName, null, cancellationToken);
+			GameObject viewGameObject = await _assetService.InstantiateAsync(assetName, null, cancellationToken);
             newView = viewGameObject.GetComponent<IUIView>();
 
 			if (newView == null)
@@ -215,7 +215,7 @@ public class UIViewManager : IDisposable
 			return null;
         }
 		
-		GameObject viewGameObject = await _assetService.Instantiate(assetName, container, cancellationToken);
+		GameObject viewGameObject = await _assetService.InstantiateAsync(assetName, container, cancellationToken);
 
         if (parentView != null)
 		{

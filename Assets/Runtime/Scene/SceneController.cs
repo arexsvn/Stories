@@ -12,6 +12,7 @@ public class SceneController
     private bool _endOfDayActive = false;
     readonly UIController _uiController;
     readonly DialogueController _dialogueController;
+    readonly InkDialogueController _inkDialogueController;
     readonly MemoryController _memoryController;
     readonly LocaleManager _localeManager;
     readonly SaveStateController _saveGameManager;
@@ -20,6 +21,7 @@ public class SceneController
 
     public SceneController(UIController uiController,
                            DialogueController dialogueController,
+                           InkDialogueController inkDialogueController,
                            MemoryController memoryController,
                            LocaleManager localeManager,
                            SaveStateController saveGameManager,
@@ -28,6 +30,7 @@ public class SceneController
     {
         _uiController = uiController;
         _dialogueController = dialogueController;
+        _inkDialogueController = inkDialogueController;
         _memoryController = memoryController;
         _localeManager = localeManager;
         _saveGameManager = saveGameManager;
@@ -103,7 +106,7 @@ public class SceneController
         _currentSceneId = sceneId;
         if (!_loadedScenes.ContainsKey(sceneId))
         {
-            GameObject prefab = (GameObject)Object.Instantiate(Resources.Load(SCENES_PATH + sceneId));  //Container.InstantiatePrefabResource(SCENES_PATH + sceneId);
+            GameObject prefab = (GameObject)Object.Instantiate(Resources.Load(SCENES_PATH + sceneId));
             _loadedScenes[sceneId] = prefab.GetComponent<Scene>();
             _loadedScenes[sceneId].view.canvas.worldCamera = _cameraController.camera;
             setupScene(_loadedScenes[sceneId]);
@@ -157,6 +160,27 @@ public class SceneController
         _uiController.showText(false);
         _uiController.fadeComplete.RemoveAll();
         _dialogueController.start(dialoguesId, memoryId);
+    }
+
+    public void startStory(string storyId)
+    {
+        _uiController.showClock(false);
+        _uiController.showText(false);
+        _uiController.fadeComplete.RemoveAll();
+
+        _inkDialogueController.Start(storyId);
+        /*
+        _currentMemory = _memoryController.getMemory(memoryId);
+
+        if (_currentMemory.sceneId != null && _currentMemory.sceneId != _currentSceneId)
+        {
+            moveToScene(_currentMemory.sceneId, () => startDialogue(_currentMemory.dialoguesId, memoryId));
+        }
+        else
+        {
+            startDialogue(_currentMemory.dialoguesId, memoryId);
+        }
+        */
     }
 
     private void setupHotspots(Scene scene)
@@ -255,7 +279,8 @@ public class SceneController
                 break;
 
             case Hotspot.Type.Memory:
-                startMemory(hotspot.memory);
+                //startMemory(hotspot.memory);
+                startStory("InkStory");
                 break;
 
             case Hotspot.Type.Dialogue:

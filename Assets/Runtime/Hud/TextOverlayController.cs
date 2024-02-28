@@ -12,7 +12,7 @@ public class TextOverlayController
 
     public async void init()
     {
-        _view = await _assetService.Instantiate<TextOverlayView>();
+        _view = await _assetService.InstantiateAsync<TextOverlayView>();
         _view.canvasGroup.alpha = 0f;
         setText("");
     }

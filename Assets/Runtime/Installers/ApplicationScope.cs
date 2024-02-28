@@ -14,6 +14,7 @@ public class ApplicationScope : LifetimeScope
         builder.Register<HudController>(Lifetime.Singleton);
         builder.Register<TextOverlayController>(Lifetime.Singleton);
         builder.Register<DialogueController>(Lifetime.Singleton);
+        builder.Register<InkDialogueController>(Lifetime.Singleton);
         builder.Register<DialogueParser>(Lifetime.Singleton);
         builder.Register<LocaleManager>(Lifetime.Singleton);
         builder.Register<AssetsManifest>(Lifetime.Singleton);
