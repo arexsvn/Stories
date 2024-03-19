@@ -400,9 +400,6 @@ MonoBehaviour:
   buttonPrefab: {fileID: 2045948690818086620, guid: 1de71a21fd1831c458b272e7fa3cacc7,
     type: 3}
   canvasGroup: {fileID: 7621554428450366430}
-  listContainer: {fileID: 6002425299181097700}
-  listItemPrefab: {fileID: 2045948690818086620, guid: 1de71a21fd1831c458b272e7fa3cacc7,
-    type: 3}
 --- !u!225 &7621554428450366430
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -449,11 +446,11 @@ RectTransform:
   - {fileID: 2818897955361684062}
   m_Father: {fileID: 2627236402619853952}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 1}
-  m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -40}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 600, y: 1000}
-  m_Pivot: {x: 0.5, y: 1}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2627236403721316398
 CanvasRenderer:
   m_ObjectHideFlags: 0

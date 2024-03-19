@@ -1,0 +1,85 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: AllAssets
+  m_EditorClassIdentifier: 
+  m_GroupName: AllAssets
+  m_Data:
+    m_SerializedData: []
+  m_GUID: a23eb8db8a3c86d48af4ed6a3c4169c8
+  m_SerializeEntries:
+  - m_GUID: e4d157644aebf5446a89638a2da12d2b
+    m_Address: JournalView
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a16064ccbba674649a12fd446349ed8e
+    m_Address: MainCanvas
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 98b36362473cfd649a949a90d93ab7db
+    m_Address: BasicDialogView
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 191fc627b4434cc4b8e3027a051f6f2b
+    m_Address: BasicInputDialogView
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fe3d984e962d00e459d30476955b1f23
+    m_Address: BasicListView
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 88ae12b8b3d607a419c5334d253cea67
+    m_Address: TextOverlayView
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 590c4e672ba26e043946333165525181
+    m_Address: DialogueView
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ee6a2e406bb530847b87829e888dda6c
+    m_Address: ChoiceView
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0c7a90bda2c590643ba171f4f6836926
+    m_Address: ButtonView
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d5c18668df6d3b247b364eafd067bfe0
+    m_Address: ClockView
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fe993614ed13c5440bf43607d46ecead
+    m_Address: HudView
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6cf48bb6d89824cc69e35b43f9a1aca6
+    m_Address: InkStory
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 0d799dbcbf9674344977c8674bc206ba, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 4ab252041f48dee4783f4361b646d4b8, type: 2}
+    - {fileID: 11400000, guid: 0ad2a093079f380479b3ef5b51d7c669, type: 2}

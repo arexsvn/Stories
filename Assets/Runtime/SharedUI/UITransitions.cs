@@ -4,9 +4,19 @@ using TMPro;
 using UnityEngine.UI;
 using System;
 
-public class UITransitions
+public class UITransitions : IUITransitions
 {
 	public const float FADE_TIME = 0.2f;
+
+    public void FadeIn(CanvasGroup canvasGroup, GameObject target = null, Action<GameObject> complete = null)
+    {
+        fadeIn(canvasGroup, target, complete);    
+    }
+
+    public void FadeOut(CanvasGroup canvasGroup, GameObject target = null, Action<GameObject> complete = null, bool deactivateOnComplete = true)
+    {
+        fadeOut(canvasGroup, target, complete);
+    }
 
     public static void fadeIn(CanvasGroup canvasGroup, GameObject target = null, Action<GameObject> complete = null)
     {

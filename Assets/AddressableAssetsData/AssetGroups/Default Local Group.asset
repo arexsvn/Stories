@@ -16,67 +16,7 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: 6a4aa6e84c0e76f4da305cdf3a460b19
-  m_SerializeEntries:
-  - m_GUID: e4d157644aebf5446a89638a2da12d2b
-    m_Address: JournalView
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: a16064ccbba674649a12fd446349ed8e
-    m_Address: MainCanvas
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 98b36362473cfd649a949a90d93ab7db
-    m_Address: BasicDialogView
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 191fc627b4434cc4b8e3027a051f6f2b
-    m_Address: BasicInputDialogView
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: fe3d984e962d00e459d30476955b1f23
-    m_Address: BasicListView
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 88ae12b8b3d607a419c5334d253cea67
-    m_Address: TextOverlayView
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 590c4e672ba26e043946333165525181
-    m_Address: DialogueView
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: ee6a2e406bb530847b87829e888dda6c
-    m_Address: ChoiceView
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 0c7a90bda2c590643ba171f4f6836926
-    m_Address: ButtonView
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: d5c18668df6d3b247b364eafd067bfe0
-    m_Address: ClockView
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: fe993614ed13c5440bf43607d46ecead
-    m_Address: HudView
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 6cf48bb6d89824cc69e35b43f9a1aca6
-    m_Address: InkStory
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
+  m_SerializeEntries: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 0d799dbcbf9674344977c8674bc206ba, type: 2}
   m_SchemaSet:

@@ -28,9 +28,12 @@ public class ApplicationScope : LifetimeScope
         builder.Register<ClockController>(Lifetime.Singleton);
         builder.Register<WebRequestService>(Lifetime.Singleton);
         builder.Register<ConnectionConfiguration>(Lifetime.Singleton);
-        builder.Register<JsonSerializationOption>(Lifetime.Singleton).AsImplementedInterfaces();
         builder.Register<BasicDialogController>(Lifetime.Singleton);
-        builder.Register<AddressablesAssetService>(Lifetime.Singleton).AsImplementedInterfaces().AsSelf();
+
+        // Interface implementations
+        builder.Register<IAssetService, AddressablesAssetService>(Lifetime.Singleton).AsSelf();
+        builder.Register<ISerializationOption, NewtonsoftJsonSerializationOption>(Lifetime.Singleton);
+        builder.Register<IUITransitions, UITransitions>(Lifetime.Singleton);
 
         // Message Channels
         builder.Register<MessageChannel<ApplicationMessage>>(Lifetime.Singleton).AsImplementedInterfaces();
