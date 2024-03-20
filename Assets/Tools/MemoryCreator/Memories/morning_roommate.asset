@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d31b62ec9d586a4e94389d9071559ca, type: 3}
   m_Name: morning_roommate
   m_EditorClassIdentifier: 
-  _serializedGraph: '{"version":2.91,"type":"FlowCanvas.FlowScript","translation":{"x":-234.0,"y":339.0},"zoomFactor":0.6223739,"nodes":[{"memoryId":"morning_roommate","sceneId":"","memoryTitle":"Discussion
+  _serializedGraph: '{"version":2.91,"type":"FlowCanvas.FlowScript","translation":{"x":1541.0,"y":218.0},"zoomFactor":0.7683216,"nodes":[{"memoryId":"morning_roommate","sceneId":"","memoryTitle":"Discussion
     with Sal over coffee","memoryLabel":"Make Coffee?","nodeId":"morning_roommate_choice_0","_position":{"x":-1793.0,"y":267.0},"$type":"FlowCanvas.Nodes.MemoryStartNode","$id":"2"},{"text":"It''s
     early, but you decide to get up after a sleepless night.","type":"Description","generatedXml":{},"nodeId":"morning_roommate_description_0","_position":{"x":-1590.0,"y":150.0},"$type":"FlowCanvas.Nodes.DescriptionNode","$id":"3"},{"text":"A
     ''long shot'' job opportunity you interviewed for weeks ago unexpectedly sent

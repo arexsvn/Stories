@@ -22,7 +22,7 @@
     <description id="morning_roommate_description_8" next="morning_roommate_statement_3">morning_roommate_description_8</description>
     <statement id="morning_roommate_statement_3" character="sal" emotion="angry" next="morning_roommate_statement_4">morning_roommate_statement_3</statement>
     <statement id="morning_roommate_statement_4" character="sal" next="morning_roommate_question_2">morning_roommate_statement_4</statement>
-    <question id="morning_roommate_question_2" character="sal">
+    <question id="morning_roommate_question_2" character="sal" emotion="angry">
       <choice id="morning_roommate_choice_3" label="morning_roommate_choice_3_label" next="morning_roommate_statement_5">morning_roommate_choice_3</choice>
       <choice id="morning_roommate_choice_4" label="morning_roommate_choice_4_label" next="morning_roommate_statement_8">morning_roommate_choice_4</choice>
     </question>

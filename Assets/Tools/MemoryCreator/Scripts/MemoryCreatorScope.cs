@@ -1,4 +1,3 @@
-using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
@@ -6,7 +5,8 @@ public class MemoryCreatorScope : LifetimeScope
 {
     protected override void Configure(IContainerBuilder builder)
     {
-        builder.Register<GameController>(Lifetime.Singleton);
+        builder.RegisterEntryPoint<MemoryCreatorController>(Lifetime.Singleton);
+
         builder.Register<UICreator>(Lifetime.Singleton);
         builder.Register<MainMenuController>(Lifetime.Singleton);
         builder.Register<UIController>(Lifetime.Singleton);
@@ -14,6 +14,7 @@ public class MemoryCreatorScope : LifetimeScope
         builder.Register<HudController>(Lifetime.Singleton);
         builder.Register<TextOverlayController>(Lifetime.Singleton);
         builder.Register<DialogueController>(Lifetime.Singleton);
+        builder.Register<InkDialogueController>(Lifetime.Singleton);
         builder.Register<DialogueParser>(Lifetime.Singleton);
         builder.Register<LocaleManager>(Lifetime.Singleton);
         builder.Register<AssetsManifest>(Lifetime.Singleton);
@@ -25,22 +26,19 @@ public class MemoryCreatorScope : LifetimeScope
         builder.Register<InboxController>(Lifetime.Singleton);
         builder.Register<CameraController>(Lifetime.Singleton);
         builder.Register<ClockController>(Lifetime.Singleton);
+        builder.Register<WebRequestService>(Lifetime.Singleton);
+        builder.Register<ConnectionConfiguration>(Lifetime.Singleton);
+        builder.Register<BasicDialogController>(Lifetime.Singleton);
+
+        // Interface implementations
+        builder.Register<IAssetService, AddressablesAssetService>(Lifetime.Singleton).AsSelf();
+        builder.Register<ISerializationOption, NewtonsoftJsonSerializationOption>(Lifetime.Singleton);
+        builder.Register<IUITransitions, UITransitions>(Lifetime.Singleton);
+
+        // Message Channels
+        builder.Register<MessageChannel<ApplicationMessage>>(Lifetime.Singleton).AsImplementedInterfaces();
 
         new DynamicGameObjectInstaller().Install(builder);
-
-        loadMemory(FlowCanvas.Nodes.MemoryStartNode.instance.memoryId);
-    }
-
-    /*
-    public override void Start()
-    {
-        base.Start();
-        loadMemory(FlowCanvas.Nodes.MemoryStartNode.instance.memoryId);
-    }
-    */
-    public void loadMemory(string memoryId)
-    {
-        GameController _gameController = Container.Resolve<GameController>();
-        _gameController.loadMemory(memoryId);
+        new UserInstaller().Install(builder);
     }
 }

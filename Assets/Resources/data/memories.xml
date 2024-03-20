@@ -12,4 +12,5 @@
   <memory id="evening_boss" dialoguesId="evening_boss" />
   <memory id="jai_conversation" dialoguesId="jai_conversation" />
   <memory id="morning_roommate" dialoguesId="morning_roommate" />
+  <memory id="cat_under_desk" dialoguesId="cat_under_desk" />
 </memories>

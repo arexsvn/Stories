@@ -1,3 +1,5 @@
+using System.Threading.Tasks;
+
 public class TextOverlayController
 {
     private TextOverlayView _view;
@@ -7,10 +9,9 @@ public class TextOverlayController
     public TextOverlayController(AddressablesAssetService assetService)
     {
         _assetService = assetService;
-        init();
     }
 
-    public async void init()
+    public async Task Init()
     {
         _view = await _assetService.InstantiateAsync<TextOverlayView>();
         _view.canvasGroup.alpha = 0f;

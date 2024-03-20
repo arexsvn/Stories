@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using VContainer.Unity;
 
-public class GameController : ITickable, ILateTickable, IFixedTickable, IInitializable
+public class MemoryCreatorController : ITickable, ILateTickable, IFixedTickable, IInitializable
 {
     private bool _gamePaused = true;
     readonly UIController _uiController;
@@ -14,18 +14,20 @@ public class GameController : ITickable, ILateTickable, IFixedTickable, IInitial
     readonly MainMenuController _mainMenuController;
     readonly IUserApi _userApi;
     readonly BasicDialogController _basicDialogController;
+    readonly TextOverlayController _textOverlayController;
     private const string START_SCENE = "kitchen";
     public const string STRINGS_PATH = "data/strings";
 
-    public GameController(UIController uiController, 
-                          SceneController sceneController, 
-                          SaveStateController saveStateController, 
-                          DialogueController dialogueController, 
-                          LocaleManager localeManager,
-                          MainMenuController mainMenuController,
-                          ISubscriber<ApplicationMessage> applicationMessageSubscriber,
-                          IUserApi userApi,
-                          BasicDialogController basicDialogController) 
+    public MemoryCreatorController(UIController uiController,
+                                  SceneController sceneController,
+                                  SaveStateController saveStateController,
+                                  DialogueController dialogueController,
+                                  LocaleManager localeManager,
+                                  MainMenuController mainMenuController,
+                                  ISubscriber<ApplicationMessage> applicationMessageSubscriber,
+                                  IUserApi userApi,
+                                  BasicDialogController basicDialogController,
+                                  TextOverlayController textOverlayController)
     {
         _uiController = uiController;
         _sceneController = sceneController;
@@ -36,6 +38,14 @@ public class GameController : ITickable, ILateTickable, IFixedTickable, IInitial
         _applicationMessageSubscriber = applicationMessageSubscriber;
         _basicDialogController = basicDialogController;
         _userApi = userApi;
+        _textOverlayController = textOverlayController;
+    }
+
+    // for playing memories from the MemoryCreator tool
+    public void loadMemory(string memoryId)
+    {
+        showMainMenu(false, false);
+        _sceneController.startMemory(memoryId);
     }
 
     public async void Initialize()
@@ -44,7 +54,10 @@ public class GameController : ITickable, ILateTickable, IFixedTickable, IInitial
 
         loadLocale();
         await _basicDialogController.Init();
+        await _textOverlayController.Init();
         initMainMenu();
+
+        loadMemory(FlowCanvas.Nodes.MemoryStartNode.instance.memoryId);
     }
 
     private void loadLocale()
@@ -131,7 +144,7 @@ public class GameController : ITickable, ILateTickable, IFixedTickable, IInitial
     private async void handleNewGame()
     {
 
-        await _basicDialogController.ShowDialog("Test Dialog", "This is a test? Are you really sure we are only testing here?", new List<DialogButtonData> 
+        await _basicDialogController.ShowDialog("Test Dialog", "This is a test? Are you really sure we are only testing here?", new List<DialogButtonData>
         {
             new (async ()=>
             {
