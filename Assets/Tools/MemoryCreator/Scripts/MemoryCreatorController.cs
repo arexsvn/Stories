@@ -14,7 +14,6 @@ public class MemoryCreatorController : ITickable, ILateTickable, IFixedTickable,
     readonly MainMenuController _mainMenuController;
     readonly IUserApi _userApi;
     readonly BasicDialogController _basicDialogController;
-    readonly TextOverlayController _textOverlayController;
     private const string START_SCENE = "kitchen";
     public const string STRINGS_PATH = "data/strings";
 
@@ -26,8 +25,7 @@ public class MemoryCreatorController : ITickable, ILateTickable, IFixedTickable,
                                   MainMenuController mainMenuController,
                                   ISubscriber<ApplicationMessage> applicationMessageSubscriber,
                                   IUserApi userApi,
-                                  BasicDialogController basicDialogController,
-                                  TextOverlayController textOverlayController)
+                                  BasicDialogController basicDialogController)
     {
         _uiController = uiController;
         _sceneController = sceneController;
@@ -38,7 +36,6 @@ public class MemoryCreatorController : ITickable, ILateTickable, IFixedTickable,
         _applicationMessageSubscriber = applicationMessageSubscriber;
         _basicDialogController = basicDialogController;
         _userApi = userApi;
-        _textOverlayController = textOverlayController;
     }
 
     // for playing memories from the MemoryCreator tool
@@ -54,7 +51,6 @@ public class MemoryCreatorController : ITickable, ILateTickable, IFixedTickable,
 
         loadLocale();
         await _basicDialogController.Init();
-        await _textOverlayController.Init();
         initMainMenu();
 
         loadMemory(FlowCanvas.Nodes.MemoryStartNode.instance.memoryId);

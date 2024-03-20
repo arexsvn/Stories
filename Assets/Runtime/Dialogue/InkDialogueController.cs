@@ -129,6 +129,7 @@ public class InkDialogueController
             string text = _currentStory.Continue();
             // This removes any white space from the text.
             descriptiveText += text.Trim() + "\n";
+            processTags(_currentStory.currentTags);
         }
 
         // Display the text on screen!
@@ -154,6 +155,27 @@ public class InkDialogueController
             });
             */
         }
+    }
+
+    private void processTags(List<string> tags)
+    {
+        foreach (string tag in tags)
+        {
+            string[] tagParts = tag.Split(':');
+
+            if (tagParts.Length != 2)
+            {
+                Debug.LogError($"processTags :: Invalid Tag Format for tag {tag}");
+                continue;
+            }
+
+            processTag(tagParts[0], tagParts[1]);
+        }
+    }
+
+    private void processTag(string type, string value)
+    {
+        Debug.Log($"processTag :: Got tag type '{type}' value '{value}'");
     }
 
     public void stop()
